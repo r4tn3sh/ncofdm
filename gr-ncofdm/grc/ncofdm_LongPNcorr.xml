@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<block>
+  <name>LongPNcorr</name>
+  <key>ncofdm_LongPNcorr</key>
+  <category>ncofdm</category>
+  <import>import ncofdm</import>
+  <make>ncofdm.LongPNcorr($fft_len, $cp_len, $LgSeqLen, $LgSeq, $LgThres)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>FFT Length</name>
+    <key>fft_len</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>CP length</name>
+    <key>cp_len</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Length of PN sequence</name>
+    <key>LgSeqLen</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>PN sequence</name>
+    <key>LgSeq</key>
+    <type>complex_vector</type>
+  </param>
+  <param>
+    <name>Threshold</name>
+    <key>LgThres</key>
+    <type>float</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+  <sink>
+    <name>rxflag</name>
+    <type>int</type>
+  </sink>
+  <sink>
+    <name>rxfos</name>
+    <type>float</type>
+  </sink>
+  <sink>
+    <name>threshold</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+  <source>
+    <name>corr</name>
+    <type>complex</type>
+  </source>
+  <source>
+    <name>flag</name>
+    <type>int</type>
+  </source>
+</block>

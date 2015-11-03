@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<block>
+  <name>DyThresAdjust</name>
+  <key>ncofdm_DyThresAdjust</key>
+  <category>ncofdm</category>
+  <import>import ncofdm</import>
+  <make>ncofdm.DyThresAdjust($ShSeqLen, $ShSeqRep, $LgSeqLen, $ShThres, $LgThres, $UpdatePeriod)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Length of short PN sequence</name>
+    <key>ShSeqLen</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Number of repetition</name>
+    <key>ShSeqRep</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Length of long PN sequence</name>
+    <key>LgSeqLen</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Short threshold</name>
+    <key>ShThres</key>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Long threshold</name>
+    <key>LgThres</key>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Update Interval</name>
+    <key>UpdatePeriod</key>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>ShCorr</name>
+    <type>float</type>
+  </sink>
+  <sink>
+    <name>LgCorr</name>
+    <type>float</type>
+  </sink>
+  <sink>
+    <name>LgFlag</name>
+    <type>float</type>
+  </sink>
+  <sink>
+    <name>MovAvgData</name>
+    <type>float</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>shth</name>
+    <type>float</type>
+  </source>
+  <source>
+    <name>lgth</name>
+    <type>float</type>
+  </source>
+  <source>
+    <name>out_sh</name>
+    <type>message</type>
+  </source>
+  <source>
+    <name>out_lg</name>
+    <type>message</type>
+  </source>
+</block>

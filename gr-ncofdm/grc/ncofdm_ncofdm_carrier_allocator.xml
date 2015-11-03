@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<block>
+    <name>ncofdm_carrier_allocator</name>
+    <key>ncofdm_ncofdm_carrier_allocator</key>
+    <category>ncofdm</category>
+    <import>import ncofdm</import>
+    <make>ncofdm.ncofdm_carrier_allocator($fft_len, $occupied_carriers, $pilot_carriers, $pilot_symbols, $len_tag_key)</make>
+    <param>
+        <name>FFT length</name>
+        <key>fft_len</key>
+        <value>fft_len</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Occupied Carriers</name>
+        <key>occupied_carriers</key>
+        <type>raw</type>
+    </param>
+    <param>
+        <name>Pilot Carriers</name>
+        <key>pilot_carriers</key>
+        <value>()</value>
+        <type>raw</type>
+    </param>
+    <param>
+        <name>Pilot Symbols</name>
+        <key>pilot_symbols</key>
+        <value>()</value>
+        <type>raw</type>
+    </param>
+    <param>
+        <name>Length tag key</name>
+        <key>len_tag_key</key>
+        <value>"packet_len"</value>
+        <type>string</type>
+    </param>
+    <sink>
+        <name>in</name>
+        <type>complex</type>
+    </sink>
+    <source>
+        <name>out</name>
+        <type>complex</type>
+        <vlen>$fft_len</vlen>
+    </source>
+</block>

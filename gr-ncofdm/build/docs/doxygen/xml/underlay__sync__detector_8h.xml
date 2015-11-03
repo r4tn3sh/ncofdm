@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="underlay__sync__detector_8h" kind="file">
+    <compoundname>underlay_sync_detector.h</compoundname>
+    <includes refid="api_8h" local="no">ncofdm/api.h</includes>
+    <includes local="no">gnuradio/sync_block.h</includes>
+    <includedby refid="underlay__sync__detector__impl_8h" local="no">underlay_sync_detector_impl.h</includedby>
+    <incdepgraph>
+      <node id="26">
+        <label>gnuradio/sync_block.h</label>
+      </node>
+      <node id="25">
+        <label>gnuradio/attributes.h</label>
+      </node>
+      <node id="23">
+        <label>underlay_sync_detector.h</label>
+        <link refid="underlay_sync_detector.h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>ncofdm/api.h</label>
+        <link refid="api_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="27">
+        <label>underlay_sync_detector.h</label>
+        <link refid="underlay_sync_detector.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>underlay_sync_detector_impl.h</label>
+        <link refid="underlay__sync__detector__impl_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classgr_1_1ncofdm_1_1underlay__sync__detector" prot="public">gr::ncofdm::underlay_sync_detector</innerclass>
+    <innernamespace refid="namespacegr">gr</innernamespace>
+    <innernamespace refid="namespacegr_1_1ncofdm">gr::ncofdm</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/root/gr-ncofdm/include/ncofdm/underlay_sync_detector.h"/>
+  </compounddef>
+</doxygen>
