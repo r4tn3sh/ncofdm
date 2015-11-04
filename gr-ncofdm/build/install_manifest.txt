@@ -9,6 +9,8 @@
 /usr/local/include/ncofdm/FreqOffCalc.h
 /usr/local/include/ncofdm/DyThresAdjust.h
 /usr/local/include/ncofdm/ShortPNdetector.h
+/usr/local/include/ncofdm/add_cp_underlay.h
+/usr/local/include/ncofdm/LongPNcorrV2.h
 /usr/local/lib/libgnuradio-ncofdm.so
 /usr/local/lib/python2.7/dist-packages/ncofdm/_ncofdm_swig.so
 /usr/local/lib/python2.7/dist-packages/ncofdm/ncofdm_swig.py
@@ -28,6 +30,8 @@
 /usr/local/share/gnuradio/grc/blocks/ncofdm_FreqOffCalc.xml
 /usr/local/share/gnuradio/grc/blocks/ncofdm_DyThresAdjust.xml
 /usr/local/share/gnuradio/grc/blocks/ncofdm_ShortPNdetector.xml
+/usr/local/share/gnuradio/grc/blocks/ncofdm_add_cp_underlay.xml
+/usr/local/share/gnuradio/grc/blocks/ncofdm_LongPNcorrV2.xml
 /usr/local/share/doc/gr-ncofdm/xml/group__block.xml
 /usr/local/share/doc/gr-ncofdm/xml/dir_97aefd0d527b934f1d99a682da8fe6a9.xml
 /usr/local/share/doc/gr-ncofdm/xml/index.xml

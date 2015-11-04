@@ -16,6 +16,8 @@
 #include "ncofdm/FreqOffCalc.h"
 #include "ncofdm/DyThresAdjust.h"
 #include "ncofdm/ShortPNdetector.h"
+#include "ncofdm/add_cp_underlay.h"
+#include "ncofdm/LongPNcorrV2.h"
 #include "ncofdm/ncofdm_carrier_allocator.h"
 #include "ncofdm/add_cp_sync.h"
 #include "ncofdm/ShortPNcorr.h"
@@ -24,6 +26,8 @@
 #include "ncofdm/FreqOffCalc.h"
 #include "ncofdm/DyThresAdjust.h"
 #include "ncofdm/ShortPNdetector.h"
+#include "ncofdm/add_cp_underlay.h"
+#include "ncofdm/LongPNcorrV2.h"
 %}
 
 
@@ -46,3 +50,7 @@ GR_SWIG_BLOCK_MAGIC2(ncofdm, FreqOffCalc);
 GR_SWIG_BLOCK_MAGIC2(ncofdm, DyThresAdjust);
 %include "ncofdm/ShortPNdetector.h"
 GR_SWIG_BLOCK_MAGIC2(ncofdm, ShortPNdetector);
+%include "ncofdm/add_cp_underlay.h"
+GR_SWIG_BLOCK_MAGIC2(ncofdm, add_cp_underlay);
+%include "ncofdm/LongPNcorrV2.h"
+GR_SWIG_BLOCK_MAGIC2(ncofdm, LongPNcorrV2);

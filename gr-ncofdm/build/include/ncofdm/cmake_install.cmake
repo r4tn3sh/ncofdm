@@ -44,6 +44,8 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/root/gr-ncofdm/include/ncofdm/FreqOffCalc.h"
     "/root/gr-ncofdm/include/ncofdm/DyThresAdjust.h"
     "/root/gr-ncofdm/include/ncofdm/ShortPNdetector.h"
+    "/root/gr-ncofdm/include/ncofdm/add_cp_underlay.h"
+    "/root/gr-ncofdm/include/ncofdm/LongPNcorrV2.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

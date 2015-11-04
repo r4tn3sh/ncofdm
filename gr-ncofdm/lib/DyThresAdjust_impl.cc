@@ -56,7 +56,6 @@ namespace gr {
                     d_UpdatePeriod(UpdatePeriod)
     {
         message_port_register_out(pmt::mp("out_sh"));
-        message_port_register_out(pmt::mp("out_lg"));
         set_history(d_ShSeqLen*(d_ShSeqRep-1));
     }
 
@@ -112,11 +111,9 @@ namespace gr {
             if (UpdateCounter == d_UpdatePeriod)
                 UpdateCounter = 0;
             pmt::pmt_t msg_sh = pmt::from_float(d_ShThres);
-            pmt::pmt_t msg_lg = pmt::from_float(d_LgThres);
             //std::cout << d_ShThres << ":" << d_LgThres << ":" << LgPeakRxd <<std::endl;
 
             message_port_pub(pmt::mp("out_sh"), msg_sh);
-            message_port_pub(pmt::mp("out_lg"), msg_lg);
             shth[i-history()] = d_ShThres;
             lgth[i-history()] = d_LgThres;
         }

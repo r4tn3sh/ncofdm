@@ -7,6 +7,8 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/gnuradio-ncofdm.dir/FreqOffCalc_impl.cc.o"
   "CMakeFiles/gnuradio-ncofdm.dir/DyThresAdjust_impl.cc.o"
   "CMakeFiles/gnuradio-ncofdm.dir/ShortPNdetector_impl.cc.o"
+  "CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o"
+  "CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o"
   "libgnuradio-ncofdm.pdb"
   "libgnuradio-ncofdm.so"
 )

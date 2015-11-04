@@ -233,6 +233,52 @@ lib/CMakeFiles/gnuradio-ncofdm.dir/ShortPNdetector_impl.cc.o.provides: lib/CMake
 
 lib/CMakeFiles/gnuradio-ncofdm.dir/ShortPNdetector_impl.cc.o.provides.build: lib/CMakeFiles/gnuradio-ncofdm.dir/ShortPNdetector_impl.cc.o
 
+lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o: lib/CMakeFiles/gnuradio-ncofdm.dir/flags.make
+lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o: ../lib/add_cp_underlay_impl.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /root/gr-ncofdm/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o"
+	cd /root/gr-ncofdm/build/lib && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o -c /root/gr-ncofdm/lib/add_cp_underlay_impl.cc
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.i"
+	cd /root/gr-ncofdm/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /root/gr-ncofdm/lib/add_cp_underlay_impl.cc > CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.i
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.s"
+	cd /root/gr-ncofdm/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /root/gr-ncofdm/lib/add_cp_underlay_impl.cc -o CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.s
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o.requires:
+.PHONY : lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o.requires
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o.provides: lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o.requires
+	$(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o.provides.build
+.PHONY : lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o.provides
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o.provides.build: lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o: lib/CMakeFiles/gnuradio-ncofdm.dir/flags.make
+lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o: ../lib/LongPNcorrV2_impl.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /root/gr-ncofdm/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o"
+	cd /root/gr-ncofdm/build/lib && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o -c /root/gr-ncofdm/lib/LongPNcorrV2_impl.cc
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.i"
+	cd /root/gr-ncofdm/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /root/gr-ncofdm/lib/LongPNcorrV2_impl.cc > CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.i
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.s"
+	cd /root/gr-ncofdm/build/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /root/gr-ncofdm/lib/LongPNcorrV2_impl.cc -o CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.s
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o.requires:
+.PHONY : lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o.requires
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o.provides: lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o.requires
+	$(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o.provides.build
+.PHONY : lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o.provides
+
+lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o.provides.build: lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o
+
 # Object files for target gnuradio-ncofdm
 gnuradio__ncofdm_OBJECTS = \
 "CMakeFiles/gnuradio-ncofdm.dir/ncofdm_carrier_allocator_impl.cc.o" \
@@ -242,7 +288,9 @@ gnuradio__ncofdm_OBJECTS = \
 "CMakeFiles/gnuradio-ncofdm.dir/LongPNcorr_impl.cc.o" \
 "CMakeFiles/gnuradio-ncofdm.dir/FreqOffCalc_impl.cc.o" \
 "CMakeFiles/gnuradio-ncofdm.dir/DyThresAdjust_impl.cc.o" \
-"CMakeFiles/gnuradio-ncofdm.dir/ShortPNdetector_impl.cc.o"
+"CMakeFiles/gnuradio-ncofdm.dir/ShortPNdetector_impl.cc.o" \
+"CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o" \
+"CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o"
 
 # External object files for target gnuradio-ncofdm
 gnuradio__ncofdm_EXTERNAL_OBJECTS =
@@ -255,6 +303,8 @@ lib/libgnuradio-ncofdm.so: lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorr_impl.cc
 lib/libgnuradio-ncofdm.so: lib/CMakeFiles/gnuradio-ncofdm.dir/FreqOffCalc_impl.cc.o
 lib/libgnuradio-ncofdm.so: lib/CMakeFiles/gnuradio-ncofdm.dir/DyThresAdjust_impl.cc.o
 lib/libgnuradio-ncofdm.so: lib/CMakeFiles/gnuradio-ncofdm.dir/ShortPNdetector_impl.cc.o
+lib/libgnuradio-ncofdm.so: lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o
+lib/libgnuradio-ncofdm.so: lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o
 lib/libgnuradio-ncofdm.so: lib/CMakeFiles/gnuradio-ncofdm.dir/build.make
 lib/libgnuradio-ncofdm.so: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 lib/libgnuradio-ncofdm.so: /usr/lib/x86_64-linux-gnu/libboost_system.so
@@ -278,6 +328,8 @@ lib/CMakeFiles/gnuradio-ncofdm.dir/requires: lib/CMakeFiles/gnuradio-ncofdm.dir/
 lib/CMakeFiles/gnuradio-ncofdm.dir/requires: lib/CMakeFiles/gnuradio-ncofdm.dir/FreqOffCalc_impl.cc.o.requires
 lib/CMakeFiles/gnuradio-ncofdm.dir/requires: lib/CMakeFiles/gnuradio-ncofdm.dir/DyThresAdjust_impl.cc.o.requires
 lib/CMakeFiles/gnuradio-ncofdm.dir/requires: lib/CMakeFiles/gnuradio-ncofdm.dir/ShortPNdetector_impl.cc.o.requires
+lib/CMakeFiles/gnuradio-ncofdm.dir/requires: lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o.requires
+lib/CMakeFiles/gnuradio-ncofdm.dir/requires: lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o.requires
 .PHONY : lib/CMakeFiles/gnuradio-ncofdm.dir/requires
 
 lib/CMakeFiles/gnuradio-ncofdm.dir/clean:

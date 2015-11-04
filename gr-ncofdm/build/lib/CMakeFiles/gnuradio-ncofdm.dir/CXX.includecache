@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../include/ncofdm/LongPNcorr.h
+../include/ncofdm/LongPNcorrV2.h
 ncofdm/api.h
 -
 gnuradio/sync_block.h
@@ -16,18 +16,16 @@ gnuradio/sync_block.h
 gnuradio/attributes.h
 -
 
-/root/gr-ncofdm/lib/LongPNcorr_impl.cc
+/root/gr-ncofdm/lib/LongPNcorrV2_impl.cc
 config.h
 /root/gr-ncofdm/lib/config.h
 gnuradio/io_signature.h
 -
-LongPNcorr_impl.h
-/root/gr-ncofdm/lib/LongPNcorr_impl.h
-volk/volk.h
--
+LongPNcorrV2_impl.h
+/root/gr-ncofdm/lib/LongPNcorrV2_impl.h
 
-/root/gr-ncofdm/lib/LongPNcorr_impl.h
-ncofdm/LongPNcorr.h
+/root/gr-ncofdm/lib/LongPNcorrV2_impl.h
+ncofdm/LongPNcorrV2.h
 -
 gnuradio/filter/fft_filter.h
 -
@@ -336,51 +334,5 @@ pmt/pmt_sugar.h
 
 /usr/local/include/pmt/pmt_sugar.h
 gnuradio/messages/msg_accepter.h
--
-
-/usr/local/include/volk/volk.h
-volk/volk_typedefs.h
--
-volk/volk_config_fixed.h
--
-volk/volk_common.h
--
-volk/volk_complex.h
--
-volk/volk_malloc.h
--
-stdlib.h
--
-stdbool.h
--
-
-/usr/local/include/volk/volk_common.h
-inttypes.h
--
-xmmintrin.h
--
-emmintrin.h
--
-
-/usr/local/include/volk/volk_complex.h
-complex
--
-stdint.h
--
-complex.h
--
-
-/usr/local/include/volk/volk_config_fixed.h
-
-/usr/local/include/volk/volk_malloc.h
-volk/volk_common.h
--
-stdlib.h
--
-
-/usr/local/include/volk/volk_typedefs.h
-inttypes.h
--
-volk/volk_complex.h
 -
 

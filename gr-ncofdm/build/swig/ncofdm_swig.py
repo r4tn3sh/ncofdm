@@ -2495,5 +2495,605 @@ ShortPNdetector_sptr_swigregister(ShortPNdetector_sptr)
 ShortPNdetector_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
 ShortPNdetector = ShortPNdetector.make;
 
+class add_cp_underlay(object):
+    """Proxy of C++ gr::ncofdm::add_cp_underlay class"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    def make(*args, **kwargs):
+        """
+        make(int fft_len, int cp_len, float sp_ratio_db, int data_len, int shseq_len, int shseq_rep, 
+            pmt_vector_cfloat shseq, int dataseq_len, pmt_vector_cfloat dataseq, 
+            int lgseq_len, pmt_vector_cfloat lgseq, std::string const & len_tag_key) -> add_cp_underlay_sptr
+        """
+        return _ncofdm_swig.add_cp_underlay_make(*args, **kwargs)
+
+    make = staticmethod(make)
+    __swig_destroy__ = _ncofdm_swig.delete_add_cp_underlay
+    __del__ = lambda self : None;
+add_cp_underlay_swigregister = _ncofdm_swig.add_cp_underlay_swigregister
+add_cp_underlay_swigregister(add_cp_underlay)
+
+def add_cp_underlay_make(*args, **kwargs):
+  """
+    add_cp_underlay_make(int fft_len, int cp_len, float sp_ratio_db, int data_len, int shseq_len, int shseq_rep, 
+        pmt_vector_cfloat shseq, int dataseq_len, pmt_vector_cfloat dataseq, 
+        int lgseq_len, pmt_vector_cfloat lgseq, std::string const & len_tag_key) -> add_cp_underlay_sptr
+    """
+  return _ncofdm_swig.add_cp_underlay_make(*args, **kwargs)
+
+class add_cp_underlay_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::ncofdm::add_cp_underlay)> class"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(boost::shared_ptr<(gr::ncofdm::add_cp_underlay)> self) -> add_cp_underlay_sptr
+        __init__(boost::shared_ptr<(gr::ncofdm::add_cp_underlay)> self, add_cp_underlay p) -> add_cp_underlay_sptr
+        """
+        this = _ncofdm_swig.new_add_cp_underlay_sptr(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def __deref__(self):
+        """__deref__(add_cp_underlay_sptr self) -> add_cp_underlay"""
+        return _ncofdm_swig.add_cp_underlay_sptr___deref__(self)
+
+    __swig_destroy__ = _ncofdm_swig.delete_add_cp_underlay_sptr
+    __del__ = lambda self : None;
+    def make(self, *args, **kwargs):
+        """
+        make(add_cp_underlay_sptr self, int fft_len, int cp_len, float sp_ratio_db, int data_len, int shseq_len, int shseq_rep, 
+            pmt_vector_cfloat shseq, int dataseq_len, pmt_vector_cfloat dataseq, 
+            int lgseq_len, pmt_vector_cfloat lgseq, std::string const & len_tag_key) -> add_cp_underlay_sptr
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_make(self, *args, **kwargs)
+
+    def history(self):
+        """history(add_cp_underlay_sptr self) -> unsigned int"""
+        return _ncofdm_swig.add_cp_underlay_sptr_history(self)
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(add_cp_underlay_sptr self, int which, int delay)
+        declare_sample_delay(add_cp_underlay_sptr self, unsigned int delay)
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_declare_sample_delay(self, *args)
+
+    def sample_delay(self, *args, **kwargs):
+        """sample_delay(add_cp_underlay_sptr self, int which) -> unsigned int"""
+        return _ncofdm_swig.add_cp_underlay_sptr_sample_delay(self, *args, **kwargs)
+
+    def output_multiple(self):
+        """output_multiple(add_cp_underlay_sptr self) -> int"""
+        return _ncofdm_swig.add_cp_underlay_sptr_output_multiple(self)
+
+    def relative_rate(self):
+        """relative_rate(add_cp_underlay_sptr self) -> double"""
+        return _ncofdm_swig.add_cp_underlay_sptr_relative_rate(self)
+
+    def start(self):
+        """start(add_cp_underlay_sptr self) -> bool"""
+        return _ncofdm_swig.add_cp_underlay_sptr_start(self)
+
+    def stop(self):
+        """stop(add_cp_underlay_sptr self) -> bool"""
+        return _ncofdm_swig.add_cp_underlay_sptr_stop(self)
+
+    def nitems_read(self, *args, **kwargs):
+        """nitems_read(add_cp_underlay_sptr self, unsigned int which_input) -> uint64_t"""
+        return _ncofdm_swig.add_cp_underlay_sptr_nitems_read(self, *args, **kwargs)
+
+    def nitems_written(self, *args, **kwargs):
+        """nitems_written(add_cp_underlay_sptr self, unsigned int which_output) -> uint64_t"""
+        return _ncofdm_swig.add_cp_underlay_sptr_nitems_written(self, *args, **kwargs)
+
+    def max_noutput_items(self):
+        """max_noutput_items(add_cp_underlay_sptr self) -> int"""
+        return _ncofdm_swig.add_cp_underlay_sptr_max_noutput_items(self)
+
+    def set_max_noutput_items(self, *args, **kwargs):
+        """set_max_noutput_items(add_cp_underlay_sptr self, int m)"""
+        return _ncofdm_swig.add_cp_underlay_sptr_set_max_noutput_items(self, *args, **kwargs)
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(add_cp_underlay_sptr self)"""
+        return _ncofdm_swig.add_cp_underlay_sptr_unset_max_noutput_items(self)
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(add_cp_underlay_sptr self) -> bool"""
+        return _ncofdm_swig.add_cp_underlay_sptr_is_set_max_noutput_items(self)
+
+    def set_min_noutput_items(self, *args, **kwargs):
+        """set_min_noutput_items(add_cp_underlay_sptr self, int m)"""
+        return _ncofdm_swig.add_cp_underlay_sptr_set_min_noutput_items(self, *args, **kwargs)
+
+    def min_noutput_items(self):
+        """min_noutput_items(add_cp_underlay_sptr self) -> int"""
+        return _ncofdm_swig.add_cp_underlay_sptr_min_noutput_items(self)
+
+    def max_output_buffer(self, *args, **kwargs):
+        """max_output_buffer(add_cp_underlay_sptr self, int i) -> long"""
+        return _ncofdm_swig.add_cp_underlay_sptr_max_output_buffer(self, *args, **kwargs)
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(add_cp_underlay_sptr self, long max_output_buffer)
+        set_max_output_buffer(add_cp_underlay_sptr self, int port, long max_output_buffer)
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_set_max_output_buffer(self, *args)
+
+    def min_output_buffer(self, *args, **kwargs):
+        """min_output_buffer(add_cp_underlay_sptr self, int i) -> long"""
+        return _ncofdm_swig.add_cp_underlay_sptr_min_output_buffer(self, *args, **kwargs)
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(add_cp_underlay_sptr self, long min_output_buffer)
+        set_min_output_buffer(add_cp_underlay_sptr self, int port, long min_output_buffer)
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_set_min_output_buffer(self, *args)
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_noutput_items(self)
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_noutput_items_avg(self)
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_noutput_items_var(self)
+
+    def pc_nproduced(self):
+        """pc_nproduced(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_nproduced(self)
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_nproduced_avg(self)
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_nproduced_var(self)
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(add_cp_underlay_sptr self, int which) -> float
+        pc_input_buffers_full(add_cp_underlay_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_input_buffers_full(self, *args)
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(add_cp_underlay_sptr self, int which) -> float
+        pc_input_buffers_full_avg(add_cp_underlay_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_input_buffers_full_avg(self, *args)
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(add_cp_underlay_sptr self, int which) -> float
+        pc_input_buffers_full_var(add_cp_underlay_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_input_buffers_full_var(self, *args)
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(add_cp_underlay_sptr self, int which) -> float
+        pc_output_buffers_full(add_cp_underlay_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_output_buffers_full(self, *args)
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(add_cp_underlay_sptr self, int which) -> float
+        pc_output_buffers_full_avg(add_cp_underlay_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_output_buffers_full_avg(self, *args)
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(add_cp_underlay_sptr self, int which) -> float
+        pc_output_buffers_full_var(add_cp_underlay_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_output_buffers_full_var(self, *args)
+
+    def pc_work_time(self):
+        """pc_work_time(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_work_time(self)
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_work_time_avg(self)
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_work_time_var(self)
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_work_time_total(self)
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(add_cp_underlay_sptr self) -> float"""
+        return _ncofdm_swig.add_cp_underlay_sptr_pc_throughput_avg(self)
+
+    def set_processor_affinity(self, *args, **kwargs):
+        """set_processor_affinity(add_cp_underlay_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _ncofdm_swig.add_cp_underlay_sptr_set_processor_affinity(self, *args, **kwargs)
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(add_cp_underlay_sptr self)"""
+        return _ncofdm_swig.add_cp_underlay_sptr_unset_processor_affinity(self)
+
+    def processor_affinity(self):
+        """processor_affinity(add_cp_underlay_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _ncofdm_swig.add_cp_underlay_sptr_processor_affinity(self)
+
+    def active_thread_priority(self):
+        """active_thread_priority(add_cp_underlay_sptr self) -> int"""
+        return _ncofdm_swig.add_cp_underlay_sptr_active_thread_priority(self)
+
+    def thread_priority(self):
+        """thread_priority(add_cp_underlay_sptr self) -> int"""
+        return _ncofdm_swig.add_cp_underlay_sptr_thread_priority(self)
+
+    def set_thread_priority(self, *args, **kwargs):
+        """set_thread_priority(add_cp_underlay_sptr self, int priority) -> int"""
+        return _ncofdm_swig.add_cp_underlay_sptr_set_thread_priority(self, *args, **kwargs)
+
+    def name(self):
+        """name(add_cp_underlay_sptr self) -> std::string"""
+        return _ncofdm_swig.add_cp_underlay_sptr_name(self)
+
+    def symbol_name(self):
+        """symbol_name(add_cp_underlay_sptr self) -> std::string"""
+        return _ncofdm_swig.add_cp_underlay_sptr_symbol_name(self)
+
+    def input_signature(self):
+        """input_signature(add_cp_underlay_sptr self) -> io_signature_sptr"""
+        return _ncofdm_swig.add_cp_underlay_sptr_input_signature(self)
+
+    def output_signature(self):
+        """output_signature(add_cp_underlay_sptr self) -> io_signature_sptr"""
+        return _ncofdm_swig.add_cp_underlay_sptr_output_signature(self)
+
+    def unique_id(self):
+        """unique_id(add_cp_underlay_sptr self) -> long"""
+        return _ncofdm_swig.add_cp_underlay_sptr_unique_id(self)
+
+    def to_basic_block(self):
+        """to_basic_block(add_cp_underlay_sptr self) -> basic_block_sptr"""
+        return _ncofdm_swig.add_cp_underlay_sptr_to_basic_block(self)
+
+    def check_topology(self, *args, **kwargs):
+        """check_topology(add_cp_underlay_sptr self, int ninputs, int noutputs) -> bool"""
+        return _ncofdm_swig.add_cp_underlay_sptr_check_topology(self, *args, **kwargs)
+
+    def alias(self):
+        """alias(add_cp_underlay_sptr self) -> std::string"""
+        return _ncofdm_swig.add_cp_underlay_sptr_alias(self)
+
+    def set_block_alias(self, *args, **kwargs):
+        """set_block_alias(add_cp_underlay_sptr self, std::string name)"""
+        return _ncofdm_swig.add_cp_underlay_sptr_set_block_alias(self, *args, **kwargs)
+
+    def _post(self, *args, **kwargs):
+        """_post(add_cp_underlay_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _ncofdm_swig.add_cp_underlay_sptr__post(self, *args, **kwargs)
+
+    def message_ports_in(self):
+        """message_ports_in(add_cp_underlay_sptr self) -> swig_int_ptr"""
+        return _ncofdm_swig.add_cp_underlay_sptr_message_ports_in(self)
+
+    def message_ports_out(self):
+        """message_ports_out(add_cp_underlay_sptr self) -> swig_int_ptr"""
+        return _ncofdm_swig.add_cp_underlay_sptr_message_ports_out(self)
+
+    def message_subscribers(self, *args, **kwargs):
+        """message_subscribers(add_cp_underlay_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _ncofdm_swig.add_cp_underlay_sptr_message_subscribers(self, *args, **kwargs)
+
+add_cp_underlay_sptr_swigregister = _ncofdm_swig.add_cp_underlay_sptr_swigregister
+add_cp_underlay_sptr_swigregister(add_cp_underlay_sptr)
+
+add_cp_underlay_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+add_cp_underlay = add_cp_underlay.make;
+
+class LongPNcorrV2(object):
+    """Proxy of C++ gr::ncofdm::LongPNcorrV2 class"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    def make(*args, **kwargs):
+        """make(int fft_len, int cp_len, int LgSeqLen, pmt_vector_cfloat LgSeq, float LgThres, int UpdateInterval) -> LongPNcorrV2_sptr"""
+        return _ncofdm_swig.LongPNcorrV2_make(*args, **kwargs)
+
+    make = staticmethod(make)
+    __swig_destroy__ = _ncofdm_swig.delete_LongPNcorrV2
+    __del__ = lambda self : None;
+LongPNcorrV2_swigregister = _ncofdm_swig.LongPNcorrV2_swigregister
+LongPNcorrV2_swigregister(LongPNcorrV2)
+
+def LongPNcorrV2_make(*args, **kwargs):
+  """LongPNcorrV2_make(int fft_len, int cp_len, int LgSeqLen, pmt_vector_cfloat LgSeq, float LgThres, int UpdateInterval) -> LongPNcorrV2_sptr"""
+  return _ncofdm_swig.LongPNcorrV2_make(*args, **kwargs)
+
+class LongPNcorrV2_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::ncofdm::LongPNcorrV2)> class"""
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
+        """
+        __init__(boost::shared_ptr<(gr::ncofdm::LongPNcorrV2)> self) -> LongPNcorrV2_sptr
+        __init__(boost::shared_ptr<(gr::ncofdm::LongPNcorrV2)> self, LongPNcorrV2 p) -> LongPNcorrV2_sptr
+        """
+        this = _ncofdm_swig.new_LongPNcorrV2_sptr(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def __deref__(self):
+        """__deref__(LongPNcorrV2_sptr self) -> LongPNcorrV2"""
+        return _ncofdm_swig.LongPNcorrV2_sptr___deref__(self)
+
+    __swig_destroy__ = _ncofdm_swig.delete_LongPNcorrV2_sptr
+    __del__ = lambda self : None;
+    def make(self, *args, **kwargs):
+        """make(LongPNcorrV2_sptr self, int fft_len, int cp_len, int LgSeqLen, pmt_vector_cfloat LgSeq, float LgThres, int UpdateInterval) -> LongPNcorrV2_sptr"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_make(self, *args, **kwargs)
+
+    def history(self):
+        """history(LongPNcorrV2_sptr self) -> unsigned int"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_history(self)
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(LongPNcorrV2_sptr self, int which, int delay)
+        declare_sample_delay(LongPNcorrV2_sptr self, unsigned int delay)
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_declare_sample_delay(self, *args)
+
+    def sample_delay(self, *args, **kwargs):
+        """sample_delay(LongPNcorrV2_sptr self, int which) -> unsigned int"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_sample_delay(self, *args, **kwargs)
+
+    def output_multiple(self):
+        """output_multiple(LongPNcorrV2_sptr self) -> int"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_output_multiple(self)
+
+    def relative_rate(self):
+        """relative_rate(LongPNcorrV2_sptr self) -> double"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_relative_rate(self)
+
+    def start(self):
+        """start(LongPNcorrV2_sptr self) -> bool"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_start(self)
+
+    def stop(self):
+        """stop(LongPNcorrV2_sptr self) -> bool"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_stop(self)
+
+    def nitems_read(self, *args, **kwargs):
+        """nitems_read(LongPNcorrV2_sptr self, unsigned int which_input) -> uint64_t"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_nitems_read(self, *args, **kwargs)
+
+    def nitems_written(self, *args, **kwargs):
+        """nitems_written(LongPNcorrV2_sptr self, unsigned int which_output) -> uint64_t"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_nitems_written(self, *args, **kwargs)
+
+    def max_noutput_items(self):
+        """max_noutput_items(LongPNcorrV2_sptr self) -> int"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_max_noutput_items(self)
+
+    def set_max_noutput_items(self, *args, **kwargs):
+        """set_max_noutput_items(LongPNcorrV2_sptr self, int m)"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_set_max_noutput_items(self, *args, **kwargs)
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(LongPNcorrV2_sptr self)"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_unset_max_noutput_items(self)
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(LongPNcorrV2_sptr self) -> bool"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_is_set_max_noutput_items(self)
+
+    def set_min_noutput_items(self, *args, **kwargs):
+        """set_min_noutput_items(LongPNcorrV2_sptr self, int m)"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_set_min_noutput_items(self, *args, **kwargs)
+
+    def min_noutput_items(self):
+        """min_noutput_items(LongPNcorrV2_sptr self) -> int"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_min_noutput_items(self)
+
+    def max_output_buffer(self, *args, **kwargs):
+        """max_output_buffer(LongPNcorrV2_sptr self, int i) -> long"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_max_output_buffer(self, *args, **kwargs)
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(LongPNcorrV2_sptr self, long max_output_buffer)
+        set_max_output_buffer(LongPNcorrV2_sptr self, int port, long max_output_buffer)
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_set_max_output_buffer(self, *args)
+
+    def min_output_buffer(self, *args, **kwargs):
+        """min_output_buffer(LongPNcorrV2_sptr self, int i) -> long"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_min_output_buffer(self, *args, **kwargs)
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(LongPNcorrV2_sptr self, long min_output_buffer)
+        set_min_output_buffer(LongPNcorrV2_sptr self, int port, long min_output_buffer)
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_set_min_output_buffer(self, *args)
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_noutput_items(self)
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_noutput_items_avg(self)
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_noutput_items_var(self)
+
+    def pc_nproduced(self):
+        """pc_nproduced(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_nproduced(self)
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_nproduced_avg(self)
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_nproduced_var(self)
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(LongPNcorrV2_sptr self, int which) -> float
+        pc_input_buffers_full(LongPNcorrV2_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_input_buffers_full(self, *args)
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(LongPNcorrV2_sptr self, int which) -> float
+        pc_input_buffers_full_avg(LongPNcorrV2_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_input_buffers_full_avg(self, *args)
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(LongPNcorrV2_sptr self, int which) -> float
+        pc_input_buffers_full_var(LongPNcorrV2_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_input_buffers_full_var(self, *args)
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(LongPNcorrV2_sptr self, int which) -> float
+        pc_output_buffers_full(LongPNcorrV2_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_output_buffers_full(self, *args)
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(LongPNcorrV2_sptr self, int which) -> float
+        pc_output_buffers_full_avg(LongPNcorrV2_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_output_buffers_full_avg(self, *args)
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(LongPNcorrV2_sptr self, int which) -> float
+        pc_output_buffers_full_var(LongPNcorrV2_sptr self) -> pmt_vector_float
+        """
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_output_buffers_full_var(self, *args)
+
+    def pc_work_time(self):
+        """pc_work_time(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_work_time(self)
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_work_time_avg(self)
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_work_time_var(self)
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_work_time_total(self)
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(LongPNcorrV2_sptr self) -> float"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_pc_throughput_avg(self)
+
+    def set_processor_affinity(self, *args, **kwargs):
+        """set_processor_affinity(LongPNcorrV2_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_set_processor_affinity(self, *args, **kwargs)
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(LongPNcorrV2_sptr self)"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_unset_processor_affinity(self)
+
+    def processor_affinity(self):
+        """processor_affinity(LongPNcorrV2_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_processor_affinity(self)
+
+    def active_thread_priority(self):
+        """active_thread_priority(LongPNcorrV2_sptr self) -> int"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_active_thread_priority(self)
+
+    def thread_priority(self):
+        """thread_priority(LongPNcorrV2_sptr self) -> int"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_thread_priority(self)
+
+    def set_thread_priority(self, *args, **kwargs):
+        """set_thread_priority(LongPNcorrV2_sptr self, int priority) -> int"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_set_thread_priority(self, *args, **kwargs)
+
+    def name(self):
+        """name(LongPNcorrV2_sptr self) -> std::string"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_name(self)
+
+    def symbol_name(self):
+        """symbol_name(LongPNcorrV2_sptr self) -> std::string"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_symbol_name(self)
+
+    def input_signature(self):
+        """input_signature(LongPNcorrV2_sptr self) -> io_signature_sptr"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_input_signature(self)
+
+    def output_signature(self):
+        """output_signature(LongPNcorrV2_sptr self) -> io_signature_sptr"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_output_signature(self)
+
+    def unique_id(self):
+        """unique_id(LongPNcorrV2_sptr self) -> long"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_unique_id(self)
+
+    def to_basic_block(self):
+        """to_basic_block(LongPNcorrV2_sptr self) -> basic_block_sptr"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_to_basic_block(self)
+
+    def check_topology(self, *args, **kwargs):
+        """check_topology(LongPNcorrV2_sptr self, int ninputs, int noutputs) -> bool"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_check_topology(self, *args, **kwargs)
+
+    def alias(self):
+        """alias(LongPNcorrV2_sptr self) -> std::string"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_alias(self)
+
+    def set_block_alias(self, *args, **kwargs):
+        """set_block_alias(LongPNcorrV2_sptr self, std::string name)"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_set_block_alias(self, *args, **kwargs)
+
+    def _post(self, *args, **kwargs):
+        """_post(LongPNcorrV2_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _ncofdm_swig.LongPNcorrV2_sptr__post(self, *args, **kwargs)
+
+    def message_ports_in(self):
+        """message_ports_in(LongPNcorrV2_sptr self) -> swig_int_ptr"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_message_ports_in(self)
+
+    def message_ports_out(self):
+        """message_ports_out(LongPNcorrV2_sptr self) -> swig_int_ptr"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_message_ports_out(self)
+
+    def message_subscribers(self, *args, **kwargs):
+        """message_subscribers(LongPNcorrV2_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _ncofdm_swig.LongPNcorrV2_sptr_message_subscribers(self, *args, **kwargs)
+
+LongPNcorrV2_sptr_swigregister = _ncofdm_swig.LongPNcorrV2_sptr_swigregister
+LongPNcorrV2_sptr_swigregister(LongPNcorrV2_sptr)
+
+LongPNcorrV2_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+LongPNcorrV2 = LongPNcorrV2.make;
+
 
 

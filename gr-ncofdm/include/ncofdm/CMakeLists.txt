@@ -30,5 +30,7 @@ install(FILES
     LongPNcorr.h
     FreqOffCalc.h
     DyThresAdjust.h
-    ShortPNdetector.h DESTINATION include/ncofdm
+    ShortPNdetector.h
+    add_cp_underlay.h
+    LongPNcorrV2.h DESTINATION include/ncofdm
 )

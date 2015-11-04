@@ -225,6 +225,30 @@ FreqOffCalc_impl.cc.s:
 	cd /root/gr-ncofdm/build && $(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/FreqOffCalc_impl.cc.s
 .PHONY : FreqOffCalc_impl.cc.s
 
+LongPNcorrV2_impl.o: LongPNcorrV2_impl.cc.o
+.PHONY : LongPNcorrV2_impl.o
+
+# target to build an object file
+LongPNcorrV2_impl.cc.o:
+	cd /root/gr-ncofdm/build && $(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.o
+.PHONY : LongPNcorrV2_impl.cc.o
+
+LongPNcorrV2_impl.i: LongPNcorrV2_impl.cc.i
+.PHONY : LongPNcorrV2_impl.i
+
+# target to preprocess a source file
+LongPNcorrV2_impl.cc.i:
+	cd /root/gr-ncofdm/build && $(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.i
+.PHONY : LongPNcorrV2_impl.cc.i
+
+LongPNcorrV2_impl.s: LongPNcorrV2_impl.cc.s
+.PHONY : LongPNcorrV2_impl.s
+
+# target to generate assembly for a file
+LongPNcorrV2_impl.cc.s:
+	cd /root/gr-ncofdm/build && $(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/LongPNcorrV2_impl.cc.s
+.PHONY : LongPNcorrV2_impl.cc.s
+
 LongPNcorr_impl.o: LongPNcorr_impl.cc.o
 .PHONY : LongPNcorr_impl.o
 
@@ -320,6 +344,30 @@ add_cp_sync_impl.s: add_cp_sync_impl.cc.s
 add_cp_sync_impl.cc.s:
 	cd /root/gr-ncofdm/build && $(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_sync_impl.cc.s
 .PHONY : add_cp_sync_impl.cc.s
+
+add_cp_underlay_impl.o: add_cp_underlay_impl.cc.o
+.PHONY : add_cp_underlay_impl.o
+
+# target to build an object file
+add_cp_underlay_impl.cc.o:
+	cd /root/gr-ncofdm/build && $(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.o
+.PHONY : add_cp_underlay_impl.cc.o
+
+add_cp_underlay_impl.i: add_cp_underlay_impl.cc.i
+.PHONY : add_cp_underlay_impl.i
+
+# target to preprocess a source file
+add_cp_underlay_impl.cc.i:
+	cd /root/gr-ncofdm/build && $(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.i
+.PHONY : add_cp_underlay_impl.cc.i
+
+add_cp_underlay_impl.s: add_cp_underlay_impl.cc.s
+.PHONY : add_cp_underlay_impl.s
+
+# target to generate assembly for a file
+add_cp_underlay_impl.cc.s:
+	cd /root/gr-ncofdm/build && $(MAKE) -f lib/CMakeFiles/gnuradio-ncofdm.dir/build.make lib/CMakeFiles/gnuradio-ncofdm.dir/add_cp_underlay_impl.cc.s
+.PHONY : add_cp_underlay_impl.cc.s
 
 ncofdm_carrier_allocator_impl.o: ncofdm_carrier_allocator_impl.cc.o
 .PHONY : ncofdm_carrier_allocator_impl.o
@@ -438,6 +486,9 @@ help:
 	@echo "... FreqOffCalc_impl.o"
 	@echo "... FreqOffCalc_impl.i"
 	@echo "... FreqOffCalc_impl.s"
+	@echo "... LongPNcorrV2_impl.o"
+	@echo "... LongPNcorrV2_impl.i"
+	@echo "... LongPNcorrV2_impl.s"
 	@echo "... LongPNcorr_impl.o"
 	@echo "... LongPNcorr_impl.i"
 	@echo "... LongPNcorr_impl.s"
@@ -450,6 +501,9 @@ help:
 	@echo "... add_cp_sync_impl.o"
 	@echo "... add_cp_sync_impl.i"
 	@echo "... add_cp_sync_impl.s"
+	@echo "... add_cp_underlay_impl.o"
+	@echo "... add_cp_underlay_impl.i"
+	@echo "... add_cp_underlay_impl.s"
 	@echo "... ncofdm_carrier_allocator_impl.o"
 	@echo "... ncofdm_carrier_allocator_impl.i"
 	@echo "... ncofdm_carrier_allocator_impl.s"

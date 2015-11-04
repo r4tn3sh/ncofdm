@@ -5,9 +5,11 @@ swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o
  ../include/ncofdm/DyThresAdjust.h
  ../include/ncofdm/FreqOffCalc.h
  ../include/ncofdm/LongPNcorr.h
+ ../include/ncofdm/LongPNcorrV2.h
  ../include/ncofdm/ShortPNcorr.h
  ../include/ncofdm/ShortPNdetector.h
  ../include/ncofdm/add_cp_sync.h
+ ../include/ncofdm/add_cp_underlay.h
  ../include/ncofdm/api.h
  ../include/ncofdm/ncofdm_carrier_allocator.h
  ../include/ncofdm/stream2fftvector.h

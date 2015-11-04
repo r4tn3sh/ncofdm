@@ -1,43 +1,43 @@
 <?xml version="1.0"?>
 <block>
-  <name>DyThresAdjust</name>
-  <key>ncofdm_DyThresAdjust</key>
+  <name>LongPNcorrV2</name>
+  <key>ncofdm_LongPNcorrV2</key>
   <category>ncofdm</category>
   <import>import ncofdm</import>
-  <make>ncofdm.DyThresAdjust($ShSeqLen, $ShSeqRep, $LgSeqLen, $ShThres, $LgThres, $UpdatePeriod)</make>
+  <make>ncofdm.LongPNcorrV2($fft_len, $cp_len, $LgSeqLen, $LgSeq, $LgThres, $UpdateInterval)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
        Sub-nodes:
        * name
        * key (makes the value accessible as $keyname, e.g. in the make node)
        * type -->
   <param>
-    <name>Length of short PN sequence</name>
-    <key>ShSeqLen</key>
+    <name>FFT Length</name>
+    <key>fft_len</key>
     <type>int</type>
   </param>
   <param>
-    <name>Number of repetition</name>
-    <key>ShSeqRep</key>
+    <name>CP length</name>
+    <key>cp_len</key>
     <type>int</type>
   </param>
   <param>
-    <name>Length of long PN sequence</name>
+    <name>Length of PN sequence</name>
     <key>LgSeqLen</key>
     <type>int</type>
   </param>
   <param>
-    <name>Short threshold</name>
-    <key>ShThres</key>
-    <type>float</type>
+    <name>PN sequence</name>
+    <key>LgSeq</key>
+    <type>complex_vector</type>
   </param>
   <param>
-    <name>Long threshold</name>
+    <name>Threshold</name>
     <key>LgThres</key>
     <type>float</type>
   </param>
   <param>
-    <name>Update Interval</name>
-    <key>UpdatePeriod</key>
+    <name>Threshold update interval</name>
+    <key>UpdateInterval</key>
     <type>int</type>
   </param>
 
@@ -47,19 +47,15 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <sink>
-    <name>ShCorr</name>
-    <type>float</type>
+    <name>in</name>
+    <type>complex</type>
   </sink>
   <sink>
-    <name>LgCorr</name>
-    <type>float</type>
+    <name>fl_fos</name>
+    <type>complex</type>
   </sink>
   <sink>
-    <name>LgFlag</name>
-    <type>float</type>
-  </sink>
-  <sink>
-    <name>MovAvgData</name>
+    <name>movavg</name>
     <type>float</type>
   </sink>
 
@@ -69,15 +65,15 @@
        * vlen
        * optional (set to 1 for optional inputs) -->
   <source>
-    <name>shth</name>
-    <type>float</type>
+    <name>out</name>
+    <type>complex</type>
   </source>
   <source>
-    <name>lgth</name>
-    <type>float</type>
+    <name>corr</name>
+    <type>complex</type>
   </source>
   <source>
-    <name>out_sh</name>
-    <type>message</type>
+    <name>flag</name>
+    <type>int</type>
   </source>
 </block>

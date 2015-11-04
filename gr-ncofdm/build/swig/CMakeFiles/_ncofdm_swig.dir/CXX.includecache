@@ -24,6 +24,12 @@ ncofdm/api.h
 gnuradio/sync_block.h
 -
 
+../include/ncofdm/LongPNcorrV2.h
+ncofdm/api.h
+-
+gnuradio/sync_block.h
+-
+
 ../include/ncofdm/ShortPNcorr.h
 ncofdm/api.h
 -
@@ -37,6 +43,12 @@ gnuradio/sync_block.h
 -
 
 ../include/ncofdm/add_cp_sync.h
+ncofdm/api.h
+-
+gnuradio/tagged_stream_block.h
+-
+
+../include/ncofdm/add_cp_underlay.h
 ncofdm/api.h
 -
 gnuradio/tagged_stream_block.h
@@ -117,6 +129,10 @@ ncofdm/DyThresAdjust.h
 /root/gr-ncofdm/build/swig/ncofdm/DyThresAdjust.h
 ncofdm/ShortPNdetector.h
 /root/gr-ncofdm/build/swig/ncofdm/ShortPNdetector.h
+ncofdm/add_cp_underlay.h
+/root/gr-ncofdm/build/swig/ncofdm/add_cp_underlay.h
+ncofdm/LongPNcorrV2.h
+/root/gr-ncofdm/build/swig/ncofdm/LongPNcorrV2.h
 ncofdm/ncofdm_carrier_allocator.h
 /root/gr-ncofdm/build/swig/ncofdm/ncofdm_carrier_allocator.h
 ncofdm/add_cp_sync.h
@@ -133,6 +149,10 @@ ncofdm/DyThresAdjust.h
 /root/gr-ncofdm/build/swig/ncofdm/DyThresAdjust.h
 ncofdm/ShortPNdetector.h
 /root/gr-ncofdm/build/swig/ncofdm/ShortPNdetector.h
+ncofdm/add_cp_underlay.h
+/root/gr-ncofdm/build/swig/ncofdm/add_cp_underlay.h
+ncofdm/LongPNcorrV2.h
+/root/gr-ncofdm/build/swig/ncofdm/LongPNcorrV2.h
 float.h
 -
 math.h

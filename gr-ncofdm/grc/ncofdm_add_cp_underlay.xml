@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<block>
+  <name>add_cp_underlay</name>
+  <key>ncofdm_add_cp_underlay</key>
+  <category>ncofdm</category>
+  <import>import ncofdm</import>
+  <make>ncofdm.add_cp_underlay($fft_len, $cp_len, $sp_ratio_db, $data_len, $shseq_len, $shseq_rep, $shseq, $dataseq_len, $dataseq, $lgseq_len, $lgseq, $len_tag_key)</make>
+
+    <param>
+        <name>FFT length</name>
+        <key>fft_len</key>
+        <value>fft_len</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>CP length</name>
+        <key>cp_len</key>
+        <value>cp_len</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Signal to PN ratio (dB)</name>
+        <key>sp_ratio_db</key>
+        <type>float</type>
+    </param>
+    <param>
+        <name>Length of data portion</name>
+        <key>data_len</key>
+        <value>()</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Length of short sequence</name>
+        <key>shseq_len</key>
+        <value>()</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Number of repetition of short sequence</name>
+        <key>shseq_rep</key>
+        <value>()</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>Short PN sequence</name>
+        <key>shseq</key>
+        <type>raw</type>
+    </param>
+    <param>
+        <name>Length of data PN sequence</name>
+        <key>dataseq_len</key>
+        <value>()</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>data PN sequence</name>
+        <key>dataseq</key>
+        <type>raw</type>
+    </param>
+    <param>
+        <name>Length of long sequence</name>
+        <key>lgseq_len</key>
+        <value>()</value>
+        <type>int</type>
+    </param>
+    <param>
+        <name>long PN sequence</name>
+        <key>lgseq</key>
+        <type>raw</type>
+    </param>
+    <param>
+        <name>Length tag key</name>
+        <key>len_tag_key</key>
+        <value>"packet_len"</value>
+        <type>string</type>
+    </param>
+    <sink>
+        <name>in</name>
+        <type>complex</type>
+        <vlen>$fft_len</vlen>
+    </sink>
+    <source>
+        <name>out</name>
+        <type>complex</type>
+    </source>
+</block>

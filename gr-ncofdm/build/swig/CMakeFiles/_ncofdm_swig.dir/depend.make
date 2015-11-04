@@ -4,9 +4,11 @@
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/DyThresAdjust.h
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/FreqOffCalc.h
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/LongPNcorr.h
+swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/LongPNcorrV2.h
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/ShortPNcorr.h
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/ShortPNdetector.h
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/add_cp_sync.h
+swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/add_cp_underlay.h
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/api.h
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/ncofdm_carrier_allocator.h
 swig/CMakeFiles/_ncofdm_swig.dir/ncofdm_swigPYTHON_wrap.cxx.o: ../include/ncofdm/stream2fftvector.h

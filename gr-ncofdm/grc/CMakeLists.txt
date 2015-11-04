@@ -25,5 +25,7 @@ install(FILES
     ncofdm_LongPNcorr.xml
     ncofdm_FreqOffCalc.xml
     ncofdm_DyThresAdjust.xml
-    ncofdm_ShortPNdetector.xml DESTINATION share/gnuradio/grc/blocks
+    ncofdm_ShortPNdetector.xml
+    ncofdm_add_cp_underlay.xml
+    ncofdm_LongPNcorrV2.xml DESTINATION share/gnuradio/grc/blocks
 )
