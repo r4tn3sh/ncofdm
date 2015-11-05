@@ -77,7 +77,7 @@ namespace gr {
 
         void ShortPNdetector_impl::process_msg(pmt::pmt_t msg){
             float tempvar = pmt::to_float(msg);
-            d_threshold = tempvar;
+            //d_threshold = tempvar;
         }
 
         int
@@ -92,6 +92,7 @@ namespace gr {
                 // Do <+signal processing+>
                 temp_in = new float[noutput_items+history()];
                 //std::cout << d_threshold << std::endl;
+                float corrsum = 0;
                 for (int i=0; i<noutput_items+history(); i++){
                     if (i<noutput_items)
                         thresh[i] = d_threshold;
@@ -99,7 +100,11 @@ namespace gr {
                         temp_in[i] = 1;
                     else
                         temp_in[i] = 0;
+                    corrsum = corrsum + in[i];
                 }
+                float alpha = 0.7;
+                if (noutput_items>0)
+                    d_threshold = d_threshold*alpha+(1-alpha)*1.5*(corrsum/noutput_items);
                 // d_filter->filter(noutput_items, in, out);
                 for (int i=0; i<noutput_items; i++){
                     out[i] = 0;

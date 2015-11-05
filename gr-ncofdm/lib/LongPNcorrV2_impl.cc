@@ -111,7 +111,7 @@ namespace gr {
                         else{
                             tempLgThres = movavg[i]*d_LgSeqLen/3.4641; //sqrt(12)=3.4641
                         }
-                        d_LgThres = 0.8*d_LgThres +0.2*0.7*tempLgThres;
+                        d_LgThres = 0.7*d_LgThres +0.3*0.8*tempLgThres;
                         pksaved = 0;
                     }
                     if (Update_counter == d_UpdateInterval)

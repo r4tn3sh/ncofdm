@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../include/ncofdm/LongPNcorrV2.h
+../include/ncofdm/ShortPNdetector.h
 ncofdm/api.h
 -
 gnuradio/sync_block.h
@@ -16,16 +16,16 @@ gnuradio/sync_block.h
 gnuradio/attributes.h
 -
 
-/root/gr-ncofdm/lib/LongPNcorrV2_impl.cc
+/root/gr-ncofdm/lib/ShortPNdetector_impl.cc
 config.h
 /root/gr-ncofdm/lib/config.h
 gnuradio/io_signature.h
 -
-LongPNcorrV2_impl.h
-/root/gr-ncofdm/lib/LongPNcorrV2_impl.h
+ShortPNdetector_impl.h
+/root/gr-ncofdm/lib/ShortPNdetector_impl.h
 
-/root/gr-ncofdm/lib/LongPNcorrV2_impl.h
-ncofdm/LongPNcorrV2.h
+/root/gr-ncofdm/lib/ShortPNdetector_impl.h
+ncofdm/ShortPNdetector.h
 -
 gnuradio/filter/fft_filter.h
 -
