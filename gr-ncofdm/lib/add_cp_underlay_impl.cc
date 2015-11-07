@@ -25,8 +25,8 @@
 #include <gnuradio/io_signature.h>
 #include "add_cp_underlay_impl.h"
 
-int seq_cnt = 0;
-int dataseq_cnt = 0;
+//int seq_cnt = 0;
+//int dataseq_cnt = 0;
 namespace gr {
     namespace ncofdm {
 
@@ -100,6 +100,8 @@ namespace gr {
                 gr_complex *in = (gr_complex *) input_items[0];
                 gr_complex *out = (gr_complex *) output_items[0];
                 // Do <+signal processing+>
+                static int seq_cnt = 0;
+                static int dataseq_cnt = 0;
                 float sp_ratio = sqrt(pow(10,d_sp_ratio_db/10));
                 int symbols_to_read = 0;
                 symbols_to_read = std::min(noutput_items / (int) d_output_size, ninput_items[0]);

@@ -25,7 +25,6 @@
 #include <gnuradio/io_signature.h>
 #include "stream2fftvector_impl.h"
 
-unsigned int blkcnt = 0;
 namespace gr {
     namespace ncofdm {
 
@@ -73,9 +72,12 @@ namespace gr {
                 gr_complex *out = (gr_complex *) output_items[0];
 
                 // Do <+signal processing+>
+                static unsigned int blkcnt = 0;
+
                 unsigned int index;
                 unsigned int outindex = 0;
                 for (int i = 0; i<noutput_items * (d_fft_len+d_cp_len); i++){
+                    // Check if an fft boundry flag was detected
                     if (flag[i] > 0){
                         blkcnt = 0;
                         index = 0;
@@ -84,9 +86,13 @@ namespace gr {
                         index = 0;
                     }
 
+                    // Select the data of fft length
+                    out[outindex] = 0;
                     if (index<d_fft_len){
-                        out[outindex++] = in[i + d_cp_len + 1];
+                        out[outindex++] = in[i + d_cp_len +1];
                     }
+                    blkcnt++;
+                    index++;
                 }
                 // Tell runtime system how many input items we consumed on
                 // each input stream.

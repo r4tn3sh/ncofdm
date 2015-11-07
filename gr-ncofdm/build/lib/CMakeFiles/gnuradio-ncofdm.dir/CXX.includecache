@@ -6,28 +6,26 @@
 
 #IncludeRegexTransform: 
 
-../include/ncofdm/ShortPNdetector.h
-ncofdm/api.h
--
-gnuradio/sync_block.h
--
-
 ../include/ncofdm/api.h
 gnuradio/attributes.h
 -
 
-/root/gr-ncofdm/lib/ShortPNdetector_impl.cc
+../include/ncofdm/ncofdm_carrier_allocator.h
+ncofdm/api.h
+-
+gnuradio/tagged_stream_block.h
+-
+
+/root/gr-ncofdm/lib/ncofdm_carrier_allocator_impl.cc
 config.h
 /root/gr-ncofdm/lib/config.h
 gnuradio/io_signature.h
 -
-ShortPNdetector_impl.h
-/root/gr-ncofdm/lib/ShortPNdetector_impl.h
+ncofdm_carrier_allocator_impl.h
+/root/gr-ncofdm/lib/ncofdm_carrier_allocator_impl.h
 
-/root/gr-ncofdm/lib/ShortPNdetector_impl.h
-ncofdm/ShortPNdetector.h
--
-gnuradio/filter/fft_filter.h
+/root/gr-ncofdm/lib/ncofdm_carrier_allocator_impl.h
+ncofdm/ncofdm_carrier_allocator.h
 -
 
 /usr/local/include/gnuradio/api.h
@@ -84,32 +82,6 @@ gnuradio/api.h
 gnuradio/basic_block.h
 -
 map
--
-
-/usr/local/include/gnuradio/fft/api.h
-gnuradio/attributes.h
--
-
-/usr/local/include/gnuradio/fft/fft.h
-gnuradio/fft/api.h
--
-gnuradio/gr_complex.h
--
-boost/thread.hpp
--
-
-/usr/local/include/gnuradio/filter/api.h
-gnuradio/attributes.h
--
-
-/usr/local/include/gnuradio/filter/fft_filter.h
-gnuradio/filter/api.h
--
-vector
--
-gnuradio/gr_complex.h
--
-gnuradio/fft/fft.h
 -
 
 /usr/local/include/gnuradio/gr_complex.h
@@ -262,7 +234,7 @@ gnuradio/api.h
 boost/shared_ptr.hpp
 -
 
-/usr/local/include/gnuradio/sync_block.h
+/usr/local/include/gnuradio/tagged_stream_block.h
 gnuradio/api.h
 -
 gnuradio/block.h

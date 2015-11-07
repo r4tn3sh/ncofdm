@@ -25,8 +25,8 @@
 #include <gnuradio/io_signature.h>
 #include "LongPNcorrV2_impl.h"
 
-int Update_counter = 0;
-int pksaved = 0;
+//int Update_counter = 0;
+//int pksaved = 0;
 namespace gr {
   namespace ncofdm {
 
@@ -76,6 +76,8 @@ namespace gr {
                 gr_complex *corr = (gr_complex *) output_items[1];
                 int *flag = (int *) output_items[2];
 
+                static int Update_counter = 0;
+                static int pksaved = 0;
                 //gr_complex longcorr;
 
                 // Do <+signal processing+>
