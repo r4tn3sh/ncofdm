@@ -23,25 +23,25 @@
 #endif
 
 #include <gnuradio/io_signature.h>
-#include "stream2fftvector_impl.h"
+#include "stream_to_fftstream_impl.h"
 
 namespace gr {
     namespace ncofdm {
 
-        stream2fftvector::sptr
-            stream2fftvector::make(int fft_len, int cp_len)
+        stream_to_fftstream::sptr
+            stream_to_fftstream::make(int fft_len, int cp_len)
             {
                 return gnuradio::get_initial_sptr
-                    (new stream2fftvector_impl(fft_len, cp_len));
+                    (new stream_to_fftstream_impl(fft_len, cp_len));
             }
 
         /*
          * The private constructor
          */
-        stream2fftvector_impl::stream2fftvector_impl(int fft_len, int cp_len)
-            : gr::block("stream2fftvector",
+        stream_to_fftstream_impl::stream_to_fftstream_impl(int fft_len, int cp_len)
+            : gr::block("stream_to_fftstream",
                     gr::io_signature::make2(2, 2, sizeof(gr_complex), sizeof(int)),
-                    gr::io_signature::make(1, 1, sizeof(gr_complex)*fft_len)),
+                    gr::io_signature::make(1, 1, sizeof(gr_complex))),
             d_fft_len(fft_len),
             d_cp_len(cp_len)
         {
@@ -51,31 +51,33 @@ namespace gr {
             if (d_cp_len<1 || d_fft_len<1){
                 throw std::invalid_argument("CP Length or FFT length should be positive integers");
             }
-            
+
             float io_ratio;
             io_ratio = (d_fft_len + d_cp_len)/d_fft_len;
-            set_history(d_fft_len+d_cp_len);
-            //set_output_multiple(d_fft_len);
+            //set_history(d_fft_len+d_cp_len);
+            set_output_multiple(d_fft_len);
+            set_relative_rate(static_cast<double>(d_fft_len)/static_cast<double>(d_fft_len+d_cp_len));
             //set_relative_rate(io_ratio);
         }
 
         /*
          * Our virtual destructor.
          */
-        stream2fftvector_impl::~stream2fftvector_impl()
+        stream_to_fftstream_impl::~stream_to_fftstream_impl()
         {
         }
+
         void
-            stream2fftvector_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
+            stream_to_fftstream_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
             {
                 unsigned ninputs = ninput_items_required.size();
                 for(unsigned i = 0; i < ninputs; i++){
-                    ninput_items_required[i] = noutput_items * (d_fft_len+d_cp_len);
-                    //std::cout << ninput_items_required[i]<< "## " << noutput_items << std::endl;
+                    ninput_items_required[i] = noutput_items * (d_fft_len+d_cp_len)/d_fft_len;
                 }
             }
+
         int
-            stream2fftvector_impl::general_work (int noutput_items,
+            stream_to_fftstream_impl::general_work (int noutput_items,
                     gr_vector_int &ninput_items,
                     gr_vector_const_void_star &input_items,
                     gr_vector_void_star &output_items)
@@ -84,15 +86,15 @@ namespace gr {
                 const int *flag = (const int *) input_items[1];
                 gr_complex *out = (gr_complex *) output_items[0];
 
-                // Do <+signal processing+>
                 static unsigned int blkcnt = 0;
                 static unsigned int index = 0;
 
                 unsigned int outindex = 0;
-                unsigned int temp_in;
-                temp_in = noutput_items*(d_fft_len + d_cp_len);
+                int min_in_items = std::min(ninput_items[0], ninput_items[1]);
+                int blks = std::min(noutput_items/d_fft_len, min_in_items/(d_fft_len+d_cp_len));
+                //std::cout << noutput_items << "# " << ninput_items[0] <<  "# " << ninput_items[1] <<"# " << blks*(d_fft_len+d_cp_len) << std::endl;
                 //for (int i = 0; i<noutput_items * (d_fft_len+d_cp_len); i++){
-                for (int i = 0; i<temp_in; i++){
+                for (int i = 0; i<blks*(d_fft_len+d_cp_len); i++){
                     // Check if an fft boundry flag was detected
                     if (flag[i] > 0){
                         blkcnt = 0;
@@ -111,12 +113,12 @@ namespace gr {
                     index++;
                 }
                 // Increment the pointers
-                in += temp_in;
+                in += blks*(d_fft_len+d_cp_len);
                 out += outindex;
 
                 // Tell runtime system how many input items we consumed on
                 // each input stream.
-                consume_each(temp_in);
+                consume_each(blks*(d_fft_len+d_cp_len));
 
                 // Tell runtime system how many output items we produced.
                 return noutput_items;

@@ -135,6 +135,9 @@ namespace gr {
                         else if (seqcnt < d_shseq_rep*d_shseq_len+d_lgseq_len){
                             out[i] = out[i] + ((gr_complex)(1/sp_ratio)*d_lgseq[seqcnt - d_shseq_rep*       d_shseq_len]);
                         }
+                        else{
+                            out[i] = out[i];
+                        }
                         seqcnt++;
                     }
                     in += d_fft_len;

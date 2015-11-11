@@ -17,16 +17,7 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 install(FILES
-    ncofdm_ncofdm_carrier_allocator.xml
-    ncofdm_ncofdm_carrier_allocator.xml
-    ncofdm_add_cp_sync.xml
-    ncofdm_ShortPNcorr.xml
-    ncofdm_stream2fftvector.xml
-    ncofdm_LongPNcorr.xml
-    ncofdm_FreqOffCalc.xml
-    ncofdm_DyThresAdjust.xml
-    ncofdm_ShortPNdetector.xml
-    ncofdm_add_cp_underlay.xml
-    ncofdm_LongPNcorrV2.xml
-    ncofdm_stream_to_fftstream.xml DESTINATION share/gnuradio/grc/blocks
+    ncofdm_underlay_sync_cp.xml
+    ncofdm_underlay_sync_detector.xml 
+	DESTINATION share/gnuradio/grc/blocks
 )

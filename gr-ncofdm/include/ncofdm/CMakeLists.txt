@@ -32,5 +32,6 @@ install(FILES
     DyThresAdjust.h
     ShortPNdetector.h
     add_cp_underlay.h
-    LongPNcorrV2.h DESTINATION include/ncofdm
+    LongPNcorrV2.h
+    stream_to_fftstream.h DESTINATION include/ncofdm
 )

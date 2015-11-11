@@ -35,7 +35,8 @@ list(APPEND ncofdm_sources
     DyThresAdjust_impl.cc
     ShortPNdetector_impl.cc
     add_cp_underlay_impl.cc
-    LongPNcorrV2_impl.cc )
+    LongPNcorrV2_impl.cc
+    stream_to_fftstream_impl.cc )
 
 set(ncofdm_sources "${ncofdm_sources}" PARENT_SCOPE)
 if(NOT ncofdm_sources)

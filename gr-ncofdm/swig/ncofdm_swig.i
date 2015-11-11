@@ -18,6 +18,7 @@
 #include "ncofdm/ShortPNdetector.h"
 #include "ncofdm/add_cp_underlay.h"
 #include "ncofdm/LongPNcorrV2.h"
+#include "ncofdm/stream_to_fftstream.h"
 #include "ncofdm/ncofdm_carrier_allocator.h"
 #include "ncofdm/add_cp_sync.h"
 #include "ncofdm/ShortPNcorr.h"
@@ -28,6 +29,7 @@
 #include "ncofdm/ShortPNdetector.h"
 #include "ncofdm/add_cp_underlay.h"
 #include "ncofdm/LongPNcorrV2.h"
+#include "ncofdm/stream_to_fftstream.h"
 %}
 
 
@@ -54,3 +56,5 @@ GR_SWIG_BLOCK_MAGIC2(ncofdm, ShortPNdetector);
 GR_SWIG_BLOCK_MAGIC2(ncofdm, add_cp_underlay);
 %include "ncofdm/LongPNcorrV2.h"
 GR_SWIG_BLOCK_MAGIC2(ncofdm, LongPNcorrV2);
+%include "ncofdm/stream_to_fftstream.h"
+GR_SWIG_BLOCK_MAGIC2(ncofdm, stream_to_fftstream);
