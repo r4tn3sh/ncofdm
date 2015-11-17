@@ -1,4 +1,7 @@
-# ncofdm V6.3
+# ncofdm V6.4
+In the example folder both tx and rx codes have been modified to streamline the configuration in the future.
+
+--ncofdm V6.3
 This version has better loopback example, but has not been tested with USRPs (it should work). contains stream2fftvector and stream_to_fftstream. File names in file sinks have been generalizedi only in loopback example.
 Going forward we still have to complete NC-OFDM full chain. After FFT at the receiver there is complete amplitude match but phase is way off (need pilots?).
 
