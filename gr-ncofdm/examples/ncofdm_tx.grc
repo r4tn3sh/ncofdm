@@ -3,54 +3,18 @@
 <flow_graph>
   <timestamp>Tue May 14 10:52:12 2013</timestamp>
   <block>
-    <key>options</key>
+    <key>variable</key>
     <param>
       <key>id</key>
-      <value>ncofdm_tx</value>
+      <value>cen_freq</value>
     </param>
     <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
-      <key>title</key>
-      <value>Transmitter NC-OFDM</value>
-    </param>
-    <param>
-      <key>author</key>
-      <value></value>
-    </param>
-    <param>
-      <key>description</key>
-      <value></value>
-    </param>
-    <param>
-      <key>window_size</key>
-      <value>1280, 1024</value>
-    </param>
-    <param>
-      <key>generate_options</key>
-      <value>qt_gui</value>
-    </param>
-    <param>
-      <key>category</key>
-      <value>Custom</value>
-    </param>
-    <param>
-      <key>run_options</key>
-      <value>run</value>
-    </param>
-    <param>
-      <key>run</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>max_nouts</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>realtime_scheduling</key>
-      <value></value>
+      <key>value</key>
+      <value>1500000000</value>
     </param>
     <param>
       <key>alias</key>
@@ -58,7 +22,61 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(0, -1)</value>
+      <value>(224, 144)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>ncofdm_amp</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(160, 747)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>final_gain</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>0.09</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(288, 747)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -86,33 +104,6 @@
     <param>
       <key>_coordinate</key>
       <value>(216, -5)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>1000000</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(280, -5)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -194,60 +185,6 @@
     <param>
       <key>_coordinate</key>
       <value>(152, -5)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>matched_filter</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>firdes.root_raised_cosine(nfilts, nfilts, 1, eb, int(11*sps*nfilts))</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1040, 195)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>cen_freq</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>1500000000</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(224, 144)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -474,87 +411,6 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>nfilts</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>32</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1216, 75)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>rolloff</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1216, 139)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
-      <value>eb</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>0.35</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1200, 203)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
       <value>pn_symbols</value>
     </param>
     <param>
@@ -744,33 +600,6 @@
     <key>variable</key>
     <param>
       <key>id</key>
-      <value>sps</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>4</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1216, 11)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>id</key>
       <value>lgseq</value>
     </param>
     <param>
@@ -815,6 +644,33 @@
     <param>
       <key>_coordinate</key>
       <value>(1032, 67)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>id</key>
+      <value>samp_rate</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>1000000</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(280, -5)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -906,7 +762,7 @@
     <key>blocks_vector_source_x</key>
     <param>
       <key>id</key>
-      <value>blocks_vector_source_x_0</value>
+      <value>blocks_vector_source</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -961,7 +817,7 @@
     <key>blocks_repack_bits_bb</key>
     <param>
       <key>id</key>
-      <value>blocks_repack_bits_bb_0_0</value>
+      <value>blocks_repack_bits</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1016,7 +872,7 @@
     <key>digital_chunks_to_symbols_xx</key>
     <param>
       <key>id</key>
-      <value>digital_chunks_to_symbols_xx_0_0_0</value>
+      <value>digital_chunks_to_symbols</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1071,7 +927,7 @@
     <key>ncofdm_ncofdm_carrier_allocator</key>
     <param>
       <key>id</key>
-      <value>ncofdm_ncofdm_carrier_allocator_0</value>
+      <value>ncofdm_ncofdm_carrier_allocator</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1126,7 +982,7 @@
     <key>fft_vxx</key>
     <param>
       <key>id</key>
-      <value>fft_vxx_0</value>
+      <value>fft_vxx</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1182,10 +1038,140 @@
     </param>
   </block>
   <block>
+    <key>ncofdm_add_cp_underlay</key>
+    <param>
+      <key>id</key>
+      <value>ncofdm_add_cp_underlay</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fft_len</key>
+      <value>fft_len</value>
+    </param>
+    <param>
+      <key>cp_len</key>
+      <value>cp_len</value>
+    </param>
+    <param>
+      <key>sp_ratio_db</key>
+      <value>10</value>
+    </param>
+    <param>
+      <key>data_len</key>
+      <value>data_len</value>
+    </param>
+    <param>
+      <key>shseq_len</key>
+      <value>shseq_len</value>
+    </param>
+    <param>
+      <key>shseq_rep</key>
+      <value>shseq_rep</value>
+    </param>
+    <param>
+      <key>shseq</key>
+      <value>shseq</value>
+    </param>
+    <param>
+      <key>dataseq_len</key>
+      <value>dataseq_len</value>
+    </param>
+    <param>
+      <key>dataseq</key>
+      <value>dataseq</value>
+    </param>
+    <param>
+      <key>lgseq_len</key>
+      <value>lgseq_len</value>
+    </param>
+    <param>
+      <key>lgseq</key>
+      <value>lgseq</value>
+    </param>
+    <param>
+      <key>len_tag_key</key>
+      <value>"packet_len"</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(56, 387)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_multiply_const_vxx</key>
+    <param>
+      <key>id</key>
+      <value>blocks_final_gain</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>const</key>
+      <value>final_gain</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(360, 483)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
     <key>uhd_usrp_sink</key>
     <param>
       <key>id</key>
-      <value>uhd_usrp_sink_0</value>
+      <value>uhd_usrp_sink</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1865,6 +1851,53 @@
     </param>
   </block>
   <block>
+    <key>blocks_multiply_const_vxx</key>
+    <param>
+      <key>id</key>
+      <value>blocks_overlaygain</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>const</key>
+      <value>[ncofdm_amp]*fft_len</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>fft_len</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(200, 315)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>180</value>
+    </param>
+  </block>
+  <block>
     <key>variable_qtgui_range</key>
     <param>
       <key>id</key>
@@ -1917,183 +1950,6 @@
     <param>
       <key>_coordinate</key>
       <value>(160, 635)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>blocks_multiply_const_vxx</key>
-    <param>
-      <key>id</key>
-      <value>blocks_multiply_const_vxx_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>const</key>
-      <value>[ncofdm_amp]*fft_len</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>fft_len</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(200, 315)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>180</value>
-    </param>
-  </block>
-  <block>
-    <key>ncofdm_add_cp_underlay</key>
-    <param>
-      <key>id</key>
-      <value>ncofdm_add_cp_underlay_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>fft_len</key>
-      <value>fft_len</value>
-    </param>
-    <param>
-      <key>cp_len</key>
-      <value>cp_len</value>
-    </param>
-    <param>
-      <key>sp_ratio_db</key>
-      <value>10</value>
-    </param>
-    <param>
-      <key>data_len</key>
-      <value>data_len</value>
-    </param>
-    <param>
-      <key>shseq_len</key>
-      <value>shseq_len</value>
-    </param>
-    <param>
-      <key>shseq_rep</key>
-      <value>shseq_rep</value>
-    </param>
-    <param>
-      <key>shseq</key>
-      <value>shseq</value>
-    </param>
-    <param>
-      <key>dataseq_len</key>
-      <value>dataseq_len</value>
-    </param>
-    <param>
-      <key>dataseq</key>
-      <value>dataseq</value>
-    </param>
-    <param>
-      <key>lgseq_len</key>
-      <value>lgseq_len</value>
-    </param>
-    <param>
-      <key>lgseq</key>
-      <value>lgseq</value>
-    </param>
-    <param>
-      <key>len_tag_key</key>
-      <value>"packet_len"</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(56, 387)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>blocks_multiply_const_vxx</key>
-    <param>
-      <key>id</key>
-      <value>blocks_multiply_const_vxx_1</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>complex</value>
-    </param>
-    <param>
-      <key>const</key>
-      <value>final_gain</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(360, 483)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2159,51 +2015,114 @@
       <value>0</value>
     </param>
   </block>
+  <block>
+    <key>options</key>
+    <param>
+      <key>id</key>
+      <value>ncofdm_tx</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>title</key>
+      <value>Transmitter NC-OFDM</value>
+    </param>
+    <param>
+      <key>author</key>
+      <value></value>
+    </param>
+    <param>
+      <key>description</key>
+      <value></value>
+    </param>
+    <param>
+      <key>window_size</key>
+      <value>1280, 1024</value>
+    </param>
+    <param>
+      <key>generate_options</key>
+      <value>qt_gui</value>
+    </param>
+    <param>
+      <key>category</key>
+      <value>Custom</value>
+    </param>
+    <param>
+      <key>run_options</key>
+      <value>run</value>
+    </param>
+    <param>
+      <key>run</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>max_nouts</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>realtime_scheduling</key>
+      <value></value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(0, -1)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
   <connection>
-    <source_block_id>blocks_repack_bits_bb_0_0</source_block_id>
-    <sink_block_id>digital_chunks_to_symbols_xx_0_0_0</sink_block_id>
+    <source_block_id>blocks_repack_bits</source_block_id>
+    <sink_block_id>digital_chunks_to_symbols</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_vector_source_x_0</source_block_id>
-    <sink_block_id>blocks_repack_bits_bb_0_0</sink_block_id>
+    <source_block_id>blocks_vector_source</source_block_id>
+    <sink_block_id>blocks_repack_bits</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>fft_vxx_0</source_block_id>
-    <sink_block_id>blocks_multiply_const_vxx_0</sink_block_id>
+    <source_block_id>fft_vxx</source_block_id>
+    <sink_block_id>blocks_overlaygain</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>ncofdm_ncofdm_carrier_allocator_0</source_block_id>
-    <sink_block_id>fft_vxx_0</sink_block_id>
+    <source_block_id>ncofdm_ncofdm_carrier_allocator</source_block_id>
+    <sink_block_id>fft_vxx</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>digital_chunks_to_symbols_xx_0_0_0</source_block_id>
-    <sink_block_id>ncofdm_ncofdm_carrier_allocator_0</sink_block_id>
+    <source_block_id>digital_chunks_to_symbols</source_block_id>
+    <sink_block_id>ncofdm_ncofdm_carrier_allocator</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_multiply_const_vxx_1</source_block_id>
-    <sink_block_id>uhd_usrp_sink_0</sink_block_id>
+    <source_block_id>blocks_final_gain</source_block_id>
+    <sink_block_id>uhd_usrp_sink</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_multiply_const_vxx_0</source_block_id>
-    <sink_block_id>ncofdm_add_cp_underlay_0</sink_block_id>
+    <source_block_id>blocks_overlaygain</source_block_id>
+    <sink_block_id>ncofdm_add_cp_underlay</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>ncofdm_add_cp_underlay_0</source_block_id>
-    <sink_block_id>blocks_multiply_const_vxx_1</sink_block_id>
+    <source_block_id>ncofdm_add_cp_underlay</source_block_id>
+    <sink_block_id>blocks_final_gain</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>

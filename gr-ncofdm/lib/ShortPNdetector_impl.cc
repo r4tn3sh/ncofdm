@@ -104,7 +104,7 @@ namespace gr {
                 }
                 float alpha = 0.7;
                 if (noutput_items>0)
-                    d_threshold = d_threshold*alpha+(1-alpha)*1.5*(corrsum/noutput_items);
+                    d_threshold = d_threshold*alpha+(1-alpha)*(corrsum/noutput_items);
                 // d_filter->filter(noutput_items, in, out);
                 for (int i=0; i<noutput_items; i++){
                     out[i] = 0;

@@ -1,0 +1,10 @@
+samp_rate 1000000
+cen_freq 1500000000
+fft_len 64
+cp_len 16
+shseq_len 40
+shseq_rep 8
+lgseq_len 320
+dataseq_len 64
+ncofdm_amp 0.18
+final_gain 0.18

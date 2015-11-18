@@ -1,4 +1,7 @@
-# ncofdm V6.4
+# ncofdm v6.5
+Examples have been added where python file can read the configuration file sent from remote computer. This method should be useful for multiple experiment.
+
+--ncofdm V6.4
 In the example folder both tx and rx codes have been modified to streamline the configuration in the future.
 
 --ncofdm V6.3

@@ -1,4 +1,14 @@
-It is considered good practice to add examples in here to demonstrate the
-functionality of your OOT module. Python scripts, GRC flow graphs or other
-code can go here.
+#ncofdm_loopback.grc (for GNU Radio companion)
+This is an example of a communication system containing both transmitter and receiver using NC-OFDM and underlay for control channel.
 
+#ncofdm_tx.grc (for GNU Radio companion)
+This is NC-OFDM transmitter using USRP.
+
+#ncofdm_rx.grc (for GNU Radio companion)
+This is NC-OFDM receiver using USRP.
+
+#tx_general.py (for command line)
+This is NC-OFDM transmitter which reads config_ncofdm_tx to configure the system.
+
+#rx_general.py (for command line)
+This is NC-OFDM receiver which reads config_ncofdm_rx to configure the system.
