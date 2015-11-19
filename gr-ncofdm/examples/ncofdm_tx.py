@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Transmitter NC-OFDM
-# Generated: Wed Nov 18 11:30:17 2015
+# Generated: Thu Nov 19 14:30:02 2015
 ##################################################
 
 from PyQt4 import Qt
@@ -77,7 +77,7 @@ class ncofdm_tx(gr.top_block, Qt.QWidget):
         self.header_formatter = header_formatter = digital.packet_header_ofdm(occupied_carriers, 1, length_tag_name)
         self.final_gain = final_gain = 0
         self.dataseq = dataseq = pn_symbols[shseq_len+lgseq_len:shseq_len+lgseq_len+dataseq_len]
-        self.data_len = data_len = 1280
+        self.data_len = data_len = dataseq_len*20
         self.cp_len = cp_len = fft_len/4
         self.cen_freq = cen_freq = 1500000000
 
@@ -219,6 +219,7 @@ class ncofdm_tx(gr.top_block, Qt.QWidget):
 
     def set_dataseq_len(self, dataseq_len):
         self.dataseq_len = dataseq_len
+        self.set_data_len(self.dataseq_len*20)
         self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
 
     def get_sync_word2(self):

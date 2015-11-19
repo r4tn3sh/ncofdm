@@ -91,10 +91,12 @@ namespace gr {
                     d_longcorr = (0,0);
                     out[i].real() = d_LgThres;
                     out[i].imag() = 0;
-                    if (real(fl_fos[i]) > 0){
+                    float rxflag = imag(fl_fos[i]);
+                    float fos = real(fl_fos[i]);
+                    if (rxflag > 0){
                         for (int j=i; j<i+d_LgSeqLen; j++){
-                            d_fos.real() = (cos(2*3.14159265*imag(fl_fos[i])*(j-i)));
-                            d_fos.imag() = (sin(2*3.14159265*imag(fl_fos[i])*(j-i)));
+                            d_fos.real() = (cos(2*3.14159265*fos*(j-i)));
+                            d_fos.imag() = (sin(2*3.14159265*fos*(j-i)));
                             d_longcorr = d_longcorr +in[j] * d_fos * d_symbols[history()-(j-i)-1];
                         }
                         if (abs(d_longcorr) > d_LgThres){

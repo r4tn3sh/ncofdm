@@ -22,11 +22,12 @@ import random
 import time
 import os
 
-class ncofdm_tx(gr.top_block):
 
+class ncofdm_tx(gr.top_block):
     def __init__(self):
         gr.top_block.__init__(self, "Transmitter NC-OFDM")
         filepath = os.getcwd()
+        global expduration
         ##################################################
         # Read parameter for configuration
         ##################################################
@@ -55,23 +56,25 @@ class ncofdm_tx(gr.top_block):
             elif linefromfile[0] == "pnseq_offset":
                 pnseq_offset = int(linedata)
             elif linefromfile[0] == "shseq":
-                shseq = int(linedata)
+                shseq = [int(z) for z in linedata]
             elif linefromfile[0] == "lgseq":
-                lgseq = int(linedata)
+                lgseq = [int(z) for z in linedata]
             elif linefromfile[0] == "dataseq":
-                dataseq = int(linedata)
+                dataseq = [int(z) for z in linedata]
             elif linefromfile[0] == "occupied_carriers":
-                occupied_carriers = int(linedata)
+                occupied_carriers = [int(z) for z in linedata]
             elif linefromfile[0] == "pilot_carriers":
-                pilot_carriers = int(linedata)
+                pilot_carriers = [int(z) for z in linedata]
             elif linefromfile[0] == "pilot_symbols":
-                pilot_symbols = int(linedata)
+                pilot_symbols = [int(z) for z in linedata]
             elif linefromfile[0] == "cen_freq":
                 cen_freq = linedata
             elif linefromfile[0] == "ncofdm_amp":
                 ncofdm_amp = linedata
             elif linefromfile[0] == "final_gain":
                 final_gain = linedata
+            elif linefromfile[0] == "expduration":
+                expduration = linedata
         ##################################################
         # Variables
         ##################################################
@@ -97,7 +100,7 @@ class ncofdm_tx(gr.top_block):
         self.header_formatter = header_formatter = digital.packet_header_ofdm(occupied_carriers, 1, length_tag_name)
         self.final_gain = final_gain
         self.dataseq = dataseq = pn_symbols[shseq_len+lgseq_len:shseq_len+lgseq_len+dataseq_len]
-        self.data_len = data_len = 1280
+        self.data_len = data_len = dataseq_len*20
         self.cp_len = cp_len
         self.cen_freq = cen_freq
         ##################################################
@@ -311,5 +314,5 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
     tb = ncofdm_tx()
     tb.start()
-    time.sleep(30)
+    time.sleep(expduration)
     tb.stop()

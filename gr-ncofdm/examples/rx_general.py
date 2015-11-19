@@ -24,10 +24,11 @@ class ncofdm_rx(gr.top_block):
     def __init__(self):
         gr.top_block.__init__(self, "Receiver NC-OFDM")
 
+        global expduration
         ##################################################
         # Read parameter for configuration
         ##################################################
-        file_handle = open('/root/gr-ncofdm/examples/config_ncofdm_tx', 'r')
+        file_handle = open('/root/gr-ncofdm/examples/config_ncofdm_rx', 'r')
         for line in file_handle: # read rest of lines
             linefromfile = ([x for x in line.split()])
             linesize = len(linefromfile)-1
@@ -52,19 +53,21 @@ class ncofdm_rx(gr.top_block):
             elif linefromfile[0] == "pnseq_offset":
                 pnseq_offset = int(linedata)
             elif linefromfile[0] == "shseq":
-                shseq = int(linedata)
+                shseq = [int(z) for z in linedata]
             elif linefromfile[0] == "lgseq":
-                lgseq = int(linedata)
+                lgseq = [int(z) for z in linedata]
             elif linefromfile[0] == "dataseq":
-                dataseq = int(linedata)
+                dataseq = [int(z) for z in linedata]
             elif linefromfile[0] == "occupied_carriers":
-                occupied_carriers = int(linedata)
+                occupied_carriers = [int(z) for z in linedata]
             elif linefromfile[0] == "pilot_carriers":
-                pilot_carriers = int(linedata)
+                pilot_carriers = [int(z) for z in linedata]
             elif linefromfile[0] == "pilot_symbols":
-                pilot_symbols = int(linedata)
+                pilot_symbols = [int(z) for z in linedata]
             elif linefromfile[0] == "cen_freq":
                 cen_freq = linedata
+            elif linefromfile[0] == "expduration":
+                expduration = linedata
         ##################################################
         # Variables
         ##################################################
@@ -84,6 +87,7 @@ class ncofdm_rx(gr.top_block):
         self.fileprefix = fileprefix = "/root/"
         self.cp_len = cp_len
         self.cen_freq = cen_freq
+        self.data_len = data_len = dataseq_len*20
         self.ShThreshold = ShThreshold = 10
         self.ShRepThreshold = ShRepThreshold = 3.5
         self.LgThreshold = LgThreshold = 60
@@ -110,7 +114,7 @@ class ncofdm_rx(gr.top_block):
         # NCOFDM blocks
         self.ncofdm_ShortPNdetector = ncofdm.ShortPNdetector(fft_len, cp_len, shseq_rep, shseq_len, 1)
         self.ncofdm_ShortPNcorr = ncofdm.ShortPNcorr(fft_len, cp_len, shseq_rep, shseq_len, (shseq))
-        self.ncofdm_LongPNcorrV2 = ncofdm.LongPNcorrV2(fft_len, cp_len, lgseq_len, (lgseq), 60, 2000)
+        self.ncofdm_LongPNcorrV2 = ncofdm.LongPNcorrV2(fft_len, cp_len, lgseq_len, (lgseq), 60, shseq_len*shseq_rep+lgseq_len+data_len+10)
         self.ncofdm_FreqOffCalc = ncofdm.FreqOffCalc(fft_len, fft_len/4, shseq_len, shseq_rep)
         # File sinks
         self.file_sink_short = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"short.dat", False)
@@ -154,10 +158,10 @@ class ncofdm_rx(gr.top_block):
         self.connect((self.blocks_complex_to_mag, 0), (self.ncofdm_ShortPNdetector, 0))
         self.connect((self.blocks_complex_to_mag_org, 0), (self.blocks_moving_average, 0))
         self.connect((self.blocks_complex_to_real_0, 0), (self.file_sink_lgth, 0))
-        self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.blocks_float_to_complex_0, 1))
+        self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.blocks_float_to_complex_0, 0))
         self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.file_sink_freqoff, 0))
         self.connect((self.blocks_delay_shpn_freqoff, 0), (self.ncofdm_FreqOffCalc, 1))
-        self.connect((self.blocks_delay_shpn_lgpn, 0), (self.blocks_float_to_complex_0, 0))
+        self.connect((self.blocks_delay_shpn_lgpn, 0), (self.blocks_float_to_complex_0, 1))
         self.connect((self.blocks_float_to_complex_0, 0), (self.ncofdm_LongPNcorrV2, 1))
         self.connect((self.blocks_float_to_int, 0), (self.blocks_delay_shpn_freqoff, 0))
         self.connect((self.blocks_moving_average, 0), (self.ncofdm_LongPNcorrV2, 2))
@@ -316,5 +320,5 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
     tb = ncofdm_rx()
     tb.start()
-    time.sleep(5)
+    time.sleep(expduration)
     tb.stop()

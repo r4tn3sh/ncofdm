@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: NC-OFDM loopback
 # Description: Example of an NC-OFDM
-# Generated: Tue Nov 17 14:27:32 2015
+# Generated: Thu Nov 19 11:13:45 2015
 ##################################################
 
 from PyQt4 import Qt
@@ -59,11 +59,11 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
         self.occupied_carriers = occupied_carriers = (range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
         self.length_tag_name = length_tag_name = "packet_len"
         self.fft_len = fft_len = 64
-        self.ShSeqLen = ShSeqLen = 40
+        self.ShSeqLen = ShSeqLen = 60
         self.LgSeqLen = LgSeqLen = 320
         self.DataSeqLen = DataSeqLen = 64
         self.sync_len = sync_len = 20
-        self.samp_rate = samp_rate = 10000
+        self.samp_rate = samp_rate = 100000
         self.pilot_symbols = pilot_symbols = ((1, 1, 1, -1,),)
         self.pilot_carriers = pilot_carriers = ((-21, -7, 7, 21,),)
         self.payload_mod = payload_mod = digital.constellation_qpsk()
@@ -80,6 +80,7 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
         self.LgThreshold = LgThreshold = 100
         self.LgSymbols = LgSymbols = pn_symbols[ShSeqLen:ShSeqLen+LgSeqLen]
         self.DataSymbols = DataSymbols = pn_symbols[ShSeqLen+LgSeqLen:DataSeqLen+ShSeqLen+LgSeqLen]
+        self.DataLen = DataLen = DataSeqLen*20
 
         ##################################################
         # Blocks
@@ -109,10 +110,10 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
         self.top_layout.addLayout(self._ncofdm_amp_layout)
         self.ncofdm_stream2fftvector_0 = ncofdm.stream2fftvector(fft_len, cp_len)
         self.ncofdm_ncofdm_carrier_allocator_0 = ncofdm.ncofdm_carrier_allocator(fft_len, occupied_carriers, (), (), "packet_len")
-        self.ncofdm_add_cp_sync_0 = ncofdm.add_cp_sync(fft_len, cp_len, 6, 1280, ShSeqLen, ShSeqRep, ShSymbols, LgSeqLen, LgSymbols, "packet_len")
+        self.ncofdm_add_cp_sync_0 = ncofdm.add_cp_sync(fft_len, cp_len, 6, DataLen, ShSeqLen, ShSeqRep, ShSymbols, LgSeqLen, LgSymbols, "packet_len")
         self.ncofdm_ShortPNdetector_0 = ncofdm.ShortPNdetector(fft_len, cp_len, ShSeqRep, ShSeqLen, 1)
         self.ncofdm_ShortPNcorr_0 = ncofdm.ShortPNcorr(fft_len, cp_len, ShSeqRep, ShSeqLen, (ShSymbols))
-        self.ncofdm_LongPNcorrV2_0 = ncofdm.LongPNcorrV2(fft_len, cp_len, LgSeqLen, (LgSymbols), 60, 2000)
+        self.ncofdm_LongPNcorrV2_0 = ncofdm.LongPNcorrV2(fft_len, cp_len, LgSeqLen, (LgSymbols), 60, ShSeqRep*ShSeqLen+LgSeqLen+DataLen+10)
         self.ncofdm_FreqOffCalc_0 = ncofdm.FreqOffCalc(fft_len, fft_len/4, ShSeqLen, ShSeqRep)
         self.fft_vxx_1 = fft.fft_vcc(fft_len, True, (), True, 1)
         self.fft_vxx_0 = fft.fft_vcc(fft_len, False, (()), True, 1)
@@ -140,21 +141,21 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
         self.blocks_moving_average_xx_0 = blocks.moving_average_ff(100, 0.01, 4000)
         self.blocks_float_to_int_0 = blocks.float_to_int(1, 1)
         self.blocks_float_to_complex_0 = blocks.float_to_complex(1)
-        self.blocks_file_sink_1_0_0_0_3 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"shortdata.dat", False)
+        self.blocks_file_sink_1_0_0_0_3 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"short.dat", False)
         self.blocks_file_sink_1_0_0_0_3.set_unbuffered(False)
-        self.blocks_file_sink_1_0_0_0_2 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"orgdata.dat", False)
+        self.blocks_file_sink_1_0_0_0_2 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"org.dat", False)
         self.blocks_file_sink_1_0_0_0_2.set_unbuffered(False)
-        self.blocks_file_sink_1_0_0_0_1_1_1 = blocks.file_sink(gr.sizeof_float*1, fileprefix+"rxshthdata.dat", False)
+        self.blocks_file_sink_1_0_0_0_1_1_1 = blocks.file_sink(gr.sizeof_float*1, fileprefix+"rxshth.dat", False)
         self.blocks_file_sink_1_0_0_0_1_1_1.set_unbuffered(False)
-        self.blocks_file_sink_1_0_0_0_1_1_0 = blocks.file_sink(gr.sizeof_float*1, fileprefix+"lgthdata.dat", False)
+        self.blocks_file_sink_1_0_0_0_1_1_0 = blocks.file_sink(gr.sizeof_float*1, fileprefix+"lgth.dat", False)
         self.blocks_file_sink_1_0_0_0_1_1_0.set_unbuffered(False)
-        self.blocks_file_sink_1_0_0_0_0_2 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"rxddata.dat", False)
+        self.blocks_file_sink_1_0_0_0_0_2 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"rxd.dat", False)
         self.blocks_file_sink_1_0_0_0_0_2.set_unbuffered(False)
-        self.blocks_file_sink_1_0_0_0_0_0 = blocks.file_sink(gr.sizeof_int*1, fileprefix+"corrdata.dat", False)
+        self.blocks_file_sink_1_0_0_0_0_0 = blocks.file_sink(gr.sizeof_int*1, fileprefix+"corr.dat", False)
         self.blocks_file_sink_1_0_0_0_0_0.set_unbuffered(False)
-        self.blocks_file_sink_1_0_0_0_0 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"decdata.dat", False)
+        self.blocks_file_sink_1_0_0_0_0 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"dec.dat", False)
         self.blocks_file_sink_1_0_0_0_0.set_unbuffered(False)
-        self.blocks_file_sink_1_0_0_0 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"longdata.dat", False)
+        self.blocks_file_sink_1_0_0_0 = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"long.dat", False)
         self.blocks_file_sink_1_0_0_0.set_unbuffered(False)
         self.blocks_delay_0_0_0_0_0_0_0 = blocks.delay(gr.sizeof_float*1, 2)
         self.blocks_delay_0_0_0_0_0_0 = blocks.delay(gr.sizeof_float*1, 2)
@@ -269,6 +270,7 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
 
     def set_DataSeqLen(self, DataSeqLen):
         self.DataSeqLen = DataSeqLen
+        self.set_DataLen(self.DataSeqLen*20)
         self.set_DataSymbols(self.pn_symbols[self.ShSeqLen+self.LgSeqLen:self.DataSeqLen+self.ShSeqLen+self.LgSeqLen])
 
     def get_sync_len(self):
@@ -329,14 +331,14 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
 
     def set_fileprefix(self, fileprefix):
         self.fileprefix = fileprefix
-        self.blocks_file_sink_1_0_0_0_2.open(self.fileprefix+"orgdata.dat")
-        self.blocks_file_sink_1_0_0_0_3.open(self.fileprefix+"shortdata.dat")
-        self.blocks_file_sink_1_0_0_0_1_1_1.open(self.fileprefix+"rxshthdata.dat")
-        self.blocks_file_sink_1_0_0_0_0_0.open(self.fileprefix+"corrdata.dat")
-        self.blocks_file_sink_1_0_0_0_1_1_0.open(self.fileprefix+"lgthdata.dat")
-        self.blocks_file_sink_1_0_0_0_0.open(self.fileprefix+"decdata.dat")
-        self.blocks_file_sink_1_0_0_0_0_2.open(self.fileprefix+"rxddata.dat")
-        self.blocks_file_sink_1_0_0_0.open(self.fileprefix+"longdata.dat")
+        self.blocks_file_sink_1_0_0_0_2.open(self.fileprefix+"org.dat")
+        self.blocks_file_sink_1_0_0_0_3.open(self.fileprefix+"short.dat")
+        self.blocks_file_sink_1_0_0_0_1_1_1.open(self.fileprefix+"rxshth.dat")
+        self.blocks_file_sink_1_0_0_0_0_0.open(self.fileprefix+"corr.dat")
+        self.blocks_file_sink_1_0_0_0_1_1_0.open(self.fileprefix+"lgth.dat")
+        self.blocks_file_sink_1_0_0_0_0.open(self.fileprefix+"dec.dat")
+        self.blocks_file_sink_1_0_0_0_0_2.open(self.fileprefix+"rxd.dat")
+        self.blocks_file_sink_1_0_0_0.open(self.fileprefix+"long.dat")
 
     def get_cp_len(self):
         return self.cp_len
@@ -393,6 +395,12 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
 
     def set_DataSymbols(self, DataSymbols):
         self.DataSymbols = DataSymbols
+
+    def get_DataLen(self):
+        return self.DataLen
+
+    def set_DataLen(self, DataLen):
+        self.DataLen = DataLen
 
 if __name__ == '__main__':
     import ctypes
