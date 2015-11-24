@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Transmitter NC-OFDM
-# Generated: Thu Nov 19 14:30:02 2015
+# Generated: Tue Nov 24 14:48:29 2015
 ##################################################
 
 from PyQt4 import Qt
@@ -95,13 +95,13 @@ class ncofdm_tx(gr.top_block, Qt.QWidget):
             def setValue(self, value):
                 super(Qwt.QwtCounter, self).setValue(value)
         self._ncofdm_amp_counter = qwt_counter_pyslot()
-        self._ncofdm_amp_counter.setRange(0, 2, 0.01)
+        self._ncofdm_amp_counter.setRange(0, 2, 0.02)
         self._ncofdm_amp_counter.setNumButtons(2)
         self._ncofdm_amp_counter.setValue(self.ncofdm_amp)
         self._ncofdm_amp_tool_bar.addWidget(self._ncofdm_amp_counter)
         self._ncofdm_amp_counter.valueChanged.connect(self.set_ncofdm_amp)
         self._ncofdm_amp_slider = Qwt.QwtSlider(None, Qt.Qt.Horizontal, Qwt.QwtSlider.BottomScale, Qwt.QwtSlider.BgSlot)
-        self._ncofdm_amp_slider.setRange(0, 2, 0.01)
+        self._ncofdm_amp_slider.setRange(0, 2, 0.02)
         self._ncofdm_amp_slider.setValue(self.ncofdm_amp)
         self._ncofdm_amp_slider.setMinimumWidth(200)
         self._ncofdm_amp_slider.valueChanged.connect(self.set_ncofdm_amp)

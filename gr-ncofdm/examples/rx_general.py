@@ -76,13 +76,13 @@ class ncofdm_rx(gr.top_block):
         self.shseq_len = shseq_len
         self.fft_len = fft_len
         self.shseq_rep = shseq_rep
-        self.shseq = shseq = pn_symbols[0:shseq_len]
+        self.shseq = shseq = pn_symbols[pnseq_offset+0:pnseq_offset+shseq_len]
+        self.lgseq = lgseq = pn_symbols[pnseq_offset+shseq_len:pnseq_offset+shseq_len+lgseq_len]
         self.samp_rate = samp_rate
-        self.pilot_symbols = pilot_symbols = ((1, 1, 1, -1,),)
-        self.pilot_carriers = pilot_carriers = ((-21, -7, 7, 21,),)
-        self.packet_len = packet_len = 3*len(range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
-        self.occupied_carriers = occupied_carriers = (range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
-        self.lgseq = lgseq = pn_symbols[shseq_len:shseq_len+lgseq_len]
+        self.pilot_symbols = pilot_symbols
+        self.pilot_carriers = pilot_carriers
+        self.packet_len = packet_len = 3*len(occupied_carriers)
+        self.occupied_carriers = occupied_carriers
         self.length_tag_name = length_tag_name = "packet_len"
         self.fileprefix = fileprefix = "/root/"
         self.cp_len = cp_len
