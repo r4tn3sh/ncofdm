@@ -3,7 +3,7 @@
 # Gnuradio Python Flow Graph
 # Title: NC-OFDM loopback
 # Description: Example of an NC-OFDM
-# Generated: Thu Nov 19 11:13:45 2015
+# Generated: Thu Nov 26 15:21:07 2015
 ##################################################
 
 from PyQt4 import Qt
@@ -59,7 +59,7 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
         self.occupied_carriers = occupied_carriers = (range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
         self.length_tag_name = length_tag_name = "packet_len"
         self.fft_len = fft_len = 64
-        self.ShSeqLen = ShSeqLen = 60
+        self.ShSeqLen = ShSeqLen = 40
         self.LgSeqLen = LgSeqLen = 320
         self.DataSeqLen = DataSeqLen = 64
         self.sync_len = sync_len = 20
@@ -70,7 +70,7 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
         self.packet_len = packet_len = 3*len(range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
         self.ncofdm_amp = ncofdm_amp = 0.19
         self.header_formatter = header_formatter = digital.packet_header_ofdm(occupied_carriers, 1, length_tag_name)
-        self.fileprefix = fileprefix = ""
+        self.fileprefix = fileprefix = "/root/"
         self.cp_len = cp_len = fft_len/4
         self.cen_freq = cen_freq = 1500000000
         self.ShThreshold = ShThreshold = 10
@@ -120,7 +120,7 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
         self.digital_chunks_to_symbols_xx_0_0_0 = digital.chunks_to_symbols_bc((payload_mod.points()), 1)
         self.channels_channel_model_0 = channels.channel_model(
         	noise_voltage=0,
-        	frequency_offset=0,
+        	frequency_offset=0.0004,
         	epsilon=1.0,
         	taps=(1, ),
         	noise_seed=0,
@@ -222,9 +222,9 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
 
     def set_pn_symbols(self, pn_symbols):
         self.pn_symbols = pn_symbols
-        self.set_ShSymbols(self.pn_symbols[0:self.ShSeqLen])
-        self.set_LgSymbols(self.pn_symbols[self.ShSeqLen:self.ShSeqLen+self.LgSeqLen])
         self.set_DataSymbols(self.pn_symbols[self.ShSeqLen+self.LgSeqLen:self.DataSeqLen+self.ShSeqLen+self.LgSeqLen])
+        self.set_LgSymbols(self.pn_symbols[self.ShSeqLen:self.ShSeqLen+self.LgSeqLen])
+        self.set_ShSymbols(self.pn_symbols[0:self.ShSeqLen])
 
     def get_occupied_carriers(self):
         return self.occupied_carriers
@@ -253,17 +253,17 @@ class ncofdm_loopback(gr.top_block, Qt.QWidget):
 
     def set_ShSeqLen(self, ShSeqLen):
         self.ShSeqLen = ShSeqLen
-        self.set_ShSymbols(self.pn_symbols[0:self.ShSeqLen])
-        self.set_LgSymbols(self.pn_symbols[self.ShSeqLen:self.ShSeqLen+self.LgSeqLen])
         self.set_DataSymbols(self.pn_symbols[self.ShSeqLen+self.LgSeqLen:self.DataSeqLen+self.ShSeqLen+self.LgSeqLen])
+        self.set_LgSymbols(self.pn_symbols[self.ShSeqLen:self.ShSeqLen+self.LgSeqLen])
+        self.set_ShSymbols(self.pn_symbols[0:self.ShSeqLen])
 
     def get_LgSeqLen(self):
         return self.LgSeqLen
 
     def set_LgSeqLen(self, LgSeqLen):
         self.LgSeqLen = LgSeqLen
-        self.set_LgSymbols(self.pn_symbols[self.ShSeqLen:self.ShSeqLen+self.LgSeqLen])
         self.set_DataSymbols(self.pn_symbols[self.ShSeqLen+self.LgSeqLen:self.DataSeqLen+self.ShSeqLen+self.LgSeqLen])
+        self.set_LgSymbols(self.pn_symbols[self.ShSeqLen:self.ShSeqLen+self.LgSeqLen])
 
     def get_DataSeqLen(self):
         return self.DataSeqLen

@@ -52,9 +52,11 @@ namespace gr {
                     d_UpdateInterval(UpdateInterval)
         {
             std::reverse(d_symbols.begin(), d_symbols.end());
-            d_filter = new filter::kernel::fft_filter_ccc(1, d_symbols);
-            set_history(d_filter->ntaps());
-            set_output_multiple(d_symbols.size());            
+            //d_filter = new filter::kernel::fft_filter_ccc(1, d_symbols);
+            //set_history(d_filter->ntaps());
+            set_history(d_LgSeqLen);
+            //set_output_multiple(d_symbols.size());            
+            set_output_multiple(d_LgSeqLen);            
         }
 
     /*
@@ -78,6 +80,7 @@ namespace gr {
 
                 static int Update_counter = 0;
                 static int pksaved = 0;
+                static int global_counter = 0;
                 //gr_complex longcorr;
 
                 // Do <+signal processing+>
@@ -86,6 +89,9 @@ namespace gr {
 
                 // Avoid buffer overflow from nested while, putting a stopper at the end
 
+                int tempflag = 0;
+                float tempcorrval[4000];
+                global_counter++;
                 for(int i=0; i<noutput_items; i++){
                     flag[i] = 0;
                     d_longcorr = (0,0);
@@ -93,13 +99,16 @@ namespace gr {
                     out[i].imag() = 0;
                     float rxflag = imag(fl_fos[i]);
                     float fos = real(fl_fos[i]);
+                    tempcorrval[i] = 0;
                     if (rxflag > 0){
                         for (int j=i; j<i+d_LgSeqLen; j++){
-                            d_fos.real() = (cos(2*3.14159265*fos*(j-i)));
-                            d_fos.imag() = (sin(2*3.14159265*fos*(j-i)));
+                            d_fos.real() = (cos(2*3.14159265*(j-i)*fos));
+                            d_fos.imag() = (sin(2*3.14159265*(j-i)*fos));
                             d_longcorr = d_longcorr +in[j] * d_fos * d_symbols[history()-(j-i)-1];
                         }
+                        tempcorrval[i] = abs(d_longcorr);
                         if (abs(d_longcorr) > d_LgThres){
+                            tempflag++;
                             flag[i] = 1;
                             if (abs(d_longcorr)>pksaved)
                                 pksaved = abs(d_longcorr);  // Save the peak
@@ -121,8 +130,6 @@ namespace gr {
                     if (Update_counter == d_UpdateInterval)
                         Update_counter = 0;
                 }
-
-                //std::cout << ++temp_counter << "###" << noutput_items<< std::endl;
                 // Tell runtime system how many output items we produced.
                 return noutput_items;
     }

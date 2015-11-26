@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Transmitter NC-OFDM
-# Generated: Tue Nov 24 14:48:29 2015
+# Generated: Mon Nov 23 13:08:19 2015
 ##################################################
 
 from PyQt4 import Qt
@@ -171,18 +171,18 @@ class ncofdm_tx(gr.top_block, Qt.QWidget):
 
     def set_shseq_len(self, shseq_len):
         self.shseq_len = shseq_len
-        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
-        self.set_shseq(self.pn_symbols[0:self.shseq_len])
         self.set_lgseq(self.pn_symbols[self.shseq_len:self.shseq_len+self.lgseq_len])
+        self.set_shseq(self.pn_symbols[0:self.shseq_len])
+        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
 
     def get_pn_symbols(self):
         return self.pn_symbols
 
     def set_pn_symbols(self, pn_symbols):
         self.pn_symbols = pn_symbols
-        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
-        self.set_shseq(self.pn_symbols[0:self.shseq_len])
         self.set_lgseq(self.pn_symbols[self.shseq_len:self.shseq_len+self.lgseq_len])
+        self.set_shseq(self.pn_symbols[0:self.shseq_len])
+        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
 
     def get_occupied_carriers(self):
         return self.occupied_carriers
@@ -196,8 +196,8 @@ class ncofdm_tx(gr.top_block, Qt.QWidget):
 
     def set_lgseq_len(self, lgseq_len):
         self.lgseq_len = lgseq_len
-        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
         self.set_lgseq(self.pn_symbols[self.shseq_len:self.shseq_len+self.lgseq_len])
+        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
 
     def get_length_tag_name(self):
         return self.length_tag_name
@@ -219,8 +219,8 @@ class ncofdm_tx(gr.top_block, Qt.QWidget):
 
     def set_dataseq_len(self, dataseq_len):
         self.dataseq_len = dataseq_len
-        self.set_data_len(self.dataseq_len*20)
         self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
+        self.set_data_len(self.dataseq_len*20)
 
     def get_sync_word2(self):
         return self.sync_word2

@@ -69,20 +69,27 @@ namespace gr {
         float *out = (float *) output_items[0];
 
         // Do <+signal processing+>
+        gr_complex diff_in;
+        float diff_angle;
         for (int i=history(); i<noutput_items+history(); i++){
             out[i-history()] = 0;
             if (rxflag[i]>0){
                 offset = 0;
                 for (int j=0; j<d_ShSeqRep-1; j++){
+                    diff_in = in[i-j*d_ShSeqLen]/in[i-(j+1)*d_ShSeqLen];
                     angle1 = atan2(in[i-j*d_ShSeqLen].imag(), in[i-j*d_ShSeqLen].real());
                     angle2 = atan2(in[i-(j+1)*d_ShSeqLen].imag(), in[i-(j+1)*d_ShSeqLen].real());
-                    if (angle2-angle1 > PI)
-                        offset = offset + (2*PI-(angle2 - angle1))/(2*PI*d_ShSeqLen);
+                    //diff_angle = angle2-angle1;
+                    diff_angle = atan2(diff_in.imag(), diff_in.real());
+                    offset = offset + (diff_angle)/(2*PI*d_ShSeqLen);
+                    /*
+                    if (diff_angle > PI)
+                        offset = offset + (2*PI-(diff_angle))/(2*PI*d_ShSeqLen);
                     else if (angle2-angle1 < -PI)
-                        offset = offset + (2*PI+(angle2 - angle1))/(2*PI*d_ShSeqLen);
+                        offset = offset + (2*PI+(diff_angle))/(2*PI*d_ShSeqLen);
                     else
-                        offset = offset + (angle2 - angle1)/(2*PI*d_ShSeqLen);
-                    //std::cout <<angle2 << ":" << angle1 << ":" << angle2-angle1 << std::endl;
+                        offset = offset + (diff_angle)/(2*PI*d_ShSeqLen);
+                    */
                 }
                 out[i-history()] = offset/(d_ShSeqRep-1);
                 //std::cout << out[i-history()] <<"******" << std::endl;
