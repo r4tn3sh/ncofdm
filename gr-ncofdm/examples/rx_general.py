@@ -66,6 +66,8 @@ class ncofdm_rx(gr.top_block):
                 pilot_symbols = [int(z) for z in linedata]
             elif linefromfile[0] == "cen_freq":
                 cen_freq = linedata
+            elif linefromfile[0] == "noofsamples":
+                noofsamples = int(linedata)
             elif linefromfile[0] == "expduration":
                 expduration = linedata
         ##################################################
@@ -129,11 +131,12 @@ class ncofdm_rx(gr.top_block):
         self.file_sink_lgth.set_unbuffered(False)
         self.file_sink_gain = blocks.file_sink(gr.sizeof_float*1, fileprefix+"gain.dat", False)
         self.file_sink_gain.set_unbuffered(False)
-        self.file_sink_freqoff = blocks.file_sink(gr.sizeof_float*1, fileprefix+"freqoff.dat", False)
-        self.file_sink_freqoff.set_unbuffered(False)
+        #self.file_sink_freqoff = blocks.file_sink(gr.sizeof_float*1, fileprefix+"freqoff.dat", False)
+        #self.file_sink_freqoff.set_unbuffered(False)
         self.file_sink_corr = blocks.file_sink(gr.sizeof_int*1, fileprefix+"corr.dat", False)
         self.file_sink_corr.set_unbuffered(False)
         # Blocks
+        self.blocks_head = blocks.head(gr.sizeof_gr_complex*1, noofsamples)
         self.blocks_threshold_ff = blocks.threshold_ff(ShRepThreshold, ShRepThreshold, 0)
         self.blocks_moving_average = blocks.moving_average_ff(100, 0.01, 4000)
         self.blocks_float_to_int = blocks.float_to_int(1, 1)
@@ -150,6 +153,8 @@ class ncofdm_rx(gr.top_block):
         ##################################################
         # Connections
         ##################################################
+        self.connect((self.uhd_usrp_source, 0), (self.blocks_head, 0))
+        self.connect((self.blocks_head, 0), (self.analog_agc, 0))
         self.connect((self.analog_agc, 0), (self.blocks_complex_to_mag_org, 0))
         self.connect((self.analog_agc, 1), (self.file_sink_gain, 0))
         self.connect((self.analog_agc, 0), (self.file_sink_org, 0))
@@ -159,7 +164,7 @@ class ncofdm_rx(gr.top_block):
         self.connect((self.blocks_complex_to_mag_org, 0), (self.blocks_moving_average, 0))
         self.connect((self.blocks_complex_to_real_0, 0), (self.file_sink_lgth, 0))
         self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.blocks_float_to_complex_0, 0))
-        self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.file_sink_freqoff, 0))
+        #self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.file_sink_freqoff, 0))
         self.connect((self.blocks_delay_shpn_freqoff, 0), (self.ncofdm_FreqOffCalc, 1))
         self.connect((self.blocks_delay_shpn_lgpn, 0), (self.blocks_float_to_complex_0, 1))
         self.connect((self.blocks_float_to_complex_0, 0), (self.ncofdm_LongPNcorrV2, 1))
@@ -180,7 +185,6 @@ class ncofdm_rx(gr.top_block):
         self.connect((self.ncofdm_ShortPNcorr, 0), (self.null_sink_shortpncorr_out, 0))
         self.connect((self.ncofdm_ShortPNdetector, 0), (self.blocks_threshold_ff, 0))
         self.connect((self.ncofdm_ShortPNdetector, 1), (self.file_sink_rxshth, 0))
-        self.connect((self.uhd_usrp_source, 0), (self.analog_agc, 0))
 
 
     def get_shseq_len(self):
@@ -277,7 +281,7 @@ class ncofdm_rx(gr.top_block):
         self.file_sink_gain.open(self.fileprefix+"gain.dat")
         self.file_sink_short.open(self.fileprefix+"short.dat")
         self.file_sink_rxshth.open(self.fileprefix+"rxshth.dat")
-        self.file_sink_freqoff.open(self.fileprefix+"freqoff.dat")
+        #self.file_sink_freqoff.open(self.fileprefix+"freqoff.dat")
         self.file_sink_corr.open(self.fileprefix+"corr.dat")
         self.file_sink_long.open(self.fileprefix+"long.dat")
         self.file_sink_lgth.open(self.fileprefix+"lgth.dat")
@@ -320,5 +324,6 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
     tb = ncofdm_rx()
     tb.start()
-    time.sleep(expduration)
-    tb.stop()
+    tb.wait()
+    #time.sleep(expduration)
+    #tb.stop()

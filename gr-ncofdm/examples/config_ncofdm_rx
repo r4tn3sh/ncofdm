@@ -1,12 +1,15 @@
+mode 1
+datacollect 0
+noofsamples 1000000
 samp_rate 1000000
 cen_freq 1500000000
 fft_len 64
 cp_len 16
-shseq_len 50
+shseq_len 20
 shseq_rep 8
 lgseq_len 320
 dataseq_len 64
-expduration 6
+expduration 4
 occupied_carriers -26 -25 -24 -23 -22 -20 -19 -18 -17 -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 8 9 10 11 12 13 14 15 16 17 18 19 20 22 23 24 25 26 
 pilot_carriers -27 -7 7 21 
 pilot_symbols 1 1 1 -1 

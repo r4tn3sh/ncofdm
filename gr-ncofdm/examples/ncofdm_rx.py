@@ -2,7 +2,7 @@
 ##################################################
 # Gnuradio Python Flow Graph
 # Title: Receiver NC-OFDM
-# Generated: Thu Nov 19 11:22:50 2015
+# Generated: Thu Nov 26 20:23:53 2015
 ##################################################
 
 from gnuradio import analog
@@ -88,6 +88,7 @@ class ncofdm_rx(gr.top_block):
         self.file_sink_corr.set_unbuffered(False)
         self.blocks_threshold_ff = blocks.threshold_ff(ShRepThreshold, ShRepThreshold, 0)
         self.blocks_moving_average = blocks.moving_average_ff(100, 0.01, 4000)
+        self.blocks_head_0 = blocks.head(gr.sizeof_gr_complex*1, 10000)
         self.blocks_float_to_int = blocks.float_to_int(1, 1)
         self.blocks_float_to_complex_lgpn_input = blocks.float_to_complex(1)
         self.blocks_delay_shpn_lgpn = blocks.delay(gr.sizeof_float*1, 2)
@@ -110,12 +111,13 @@ class ncofdm_rx(gr.top_block):
         self.connect((self.blocks_complex_to_mag, 0), (self.ncofdm_ShortPNdetector, 0))    
         self.connect((self.blocks_complex_to_mag_org, 0), (self.blocks_moving_average, 0))    
         self.connect((self.blocks_complex_to_real_lgth, 0), (self.file_sink_lgth, 0))    
-        self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.blocks_float_to_complex_lgpn_input, 1))    
+        self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.blocks_float_to_complex_lgpn_input, 0))    
         self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.file_sink_freqoff, 0))    
         self.connect((self.blocks_delay_shpn_freqoff, 0), (self.ncofdm_FreqOffCalc, 1))    
-        self.connect((self.blocks_delay_shpn_lgpn, 0), (self.blocks_float_to_complex_lgpn_input, 0))    
+        self.connect((self.blocks_delay_shpn_lgpn, 0), (self.blocks_float_to_complex_lgpn_input, 1))    
         self.connect((self.blocks_float_to_complex_lgpn_input, 0), (self.ncofdm_LongPNcorrV2, 1))    
         self.connect((self.blocks_float_to_int, 0), (self.blocks_delay_shpn_freqoff, 0))    
+        self.connect((self.blocks_head_0, 0), (self.analog_agc, 0))    
         self.connect((self.blocks_moving_average, 0), (self.ncofdm_LongPNcorrV2, 2))    
         self.connect((self.blocks_threshold_ff, 0), (self.blocks_delay_shpn_lgpn, 0))    
         self.connect((self.blocks_threshold_ff, 0), (self.blocks_float_to_int, 0))    
@@ -132,7 +134,7 @@ class ncofdm_rx(gr.top_block):
         self.connect((self.ncofdm_ShortPNcorr, 0), (self.null_sink_shortpncorr_out, 0))    
         self.connect((self.ncofdm_ShortPNdetector, 0), (self.blocks_threshold_ff, 0))    
         self.connect((self.ncofdm_ShortPNdetector, 1), (self.file_sink_rxshth, 0))    
-        self.connect((self.uhd_usrp_source, 0), (self.analog_agc, 0))    
+        self.connect((self.uhd_usrp_source, 0), (self.blocks_head_0, 0))    
 
 
     def get_shseq_len(self):
