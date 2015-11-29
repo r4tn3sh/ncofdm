@@ -76,7 +76,7 @@ namespace gr {
             if (rxflag[i]>0){
                 offset = 0;
                 for (int j=0; j<d_ShSeqRep-1; j++){
-                    diff_in = in[i-j*d_ShSeqLen]/in[i-(j+1)*d_ShSeqLen];
+                    diff_in = in[i-(j+1)*d_ShSeqLen]/in[i-j*d_ShSeqLen];
                     angle1 = atan2(in[i-j*d_ShSeqLen].imag(), in[i-j*d_ShSeqLen].real());
                     angle2 = atan2(in[i-(j+1)*d_ShSeqLen].imag(), in[i-(j+1)*d_ShSeqLen].real());
                     //diff_angle = angle2-angle1;

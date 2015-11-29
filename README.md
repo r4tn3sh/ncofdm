@@ -1,4 +1,7 @@
-# ncofdm v7.1
+# ncofdm v7.2
+In v7.1 a new bug was introduced which has been removed now
+
+### ncofdm v7.1
 Limited the data collection to 1 million samples by using a block "Head". Now a parameter called 'noofsamples' is passed  to rx_general.py indicating it, how many samples are to be processed.
 
 ### ncofdm v7
