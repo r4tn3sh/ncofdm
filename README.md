@@ -1,8 +1,2 @@
-# ncofdm v7.2
-In v7.1 a new bug was introduced which has been removed now
-
-### ncofdm v7.1
-Limited the data collection to 1 million samples by using a block "Head". Now a parameter called 'noofsamples' is passed  to rx_general.py indicating it, how many samples are to be processed.
-
-### ncofdm v7
-Bugs were corrected in LongCorrV2 and FreqOffsetCalc. Example codes are ready for bulk data collection. All channges made in v6.x are in this version. 
+# ncofdm v8
+Better control of power ratio is available. The "add_cp_underlay" block now receives the input with unit power over complete bandwidth (if only a subset of carriers are used then power is calculated accordingly). The underlay amplitude is kept at 0.1 and based on signal-to-underlay ratio overlay signal is adjusted. More than 20dB signal-to-underlay is not allowed, since input to USRP sink needs to be within unit circle in complex plane. Before feeding the signal to USRP sink a constant "final_gain" is multiplied which ensures that underlay power is same as noise.

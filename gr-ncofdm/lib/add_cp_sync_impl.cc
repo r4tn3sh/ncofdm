@@ -130,13 +130,13 @@ namespace gr {
                             seqcnt = 0;
                         //out[i] = out[i] + ((gr_complex)(0.316)*d_symbols[seqcnt++]);
                         if (seqcnt < d_shseq_rep*d_shseq_len){
-                            out[i] = out[i] + ((gr_complex)(1/sp_ratio)*d_shseq[seqcnt%d_shseq_len]);
+                            out[i] = ((gr_complex)(0.1*sp_ratio)*out[i])+ ((gr_complex)(0.1)*d_shseq[seqcnt%d_shseq_len]);
                         }
                         else if (seqcnt < d_shseq_rep*d_shseq_len+d_lgseq_len){
-                            out[i] = out[i] + ((gr_complex)(1/sp_ratio)*d_lgseq[seqcnt - d_shseq_rep*       d_shseq_len]);
+                            out[i] = ((gr_complex)(0.1*sp_ratio)*out[i]) + ((gr_complex)(0.1)*d_lgseq[seqcnt - d_shseq_rep*d_shseq_len]);
                         }
                         else{
-                            out[i] = out[i];
+                            out[i] = ((gr_complex)(0.1*sp_ratio)*out[i]);
                         }
                         seqcnt++;
                     }

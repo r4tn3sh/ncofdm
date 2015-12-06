@@ -68,6 +68,9 @@ namespace gr {
             if ((d_data_len) % (d_dataseq_len)){
                 throw std::invalid_argument("Data length should be multiple of Data PN sequence length");
             }
+            if (d_sp_ratio_db>20){
+                throw std::invalid_argument("Currently OFDM to underlay ratio of more than 20dB is not allowed");
+            }
             //set variables
             set_relative_rate(d_output_size);
             if (len_tag_key.empty()) {
@@ -118,13 +121,13 @@ namespace gr {
                         }
                         //out[i] = out[i] + ((gr_complex)(0.316)*d_symbols[seq_cnt++]);
                         if (seq_cnt < d_shseq_rep*d_shseq_len){
-                            out[i] = out[i] + ((gr_complex)(1/sp_ratio)*d_shseq[seq_cnt%d_shseq_len]);
+                            out[i] = ((gr_complex)(0.1*sp_ratio)*out[i])+ ((gr_complex)(0.1)*d_shseq[seq_cnt%d_shseq_len]);
                         }
                         else if (seq_cnt < d_shseq_rep*d_shseq_len+d_lgseq_len){
-                            out[i] = out[i] + ((gr_complex)(1/sp_ratio)*d_lgseq[seq_cnt - d_shseq_rep*d_shseq_len]);
+                            out[i] = ((gr_complex)(0.1*sp_ratio)*out[i]) + ((gr_complex)(0.1)*d_lgseq[seq_cnt - d_shseq_rep*d_shseq_len]);
                         }
                         else{
-                            out[i] = out[i] + ((gr_complex)(1/sp_ratio)*d_dataseq[dataseq_cnt%d_dataseq_len]);
+                            out[i] = ((gr_complex)(0.1*sp_ratio)*out[i]) + ((gr_complex)(0.1)*d_dataseq[dataseq_cnt%d_dataseq_len]);
                             dataseq_cnt++;
                         }
                         seq_cnt++;
