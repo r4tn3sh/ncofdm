@@ -81,6 +81,8 @@ class ncofdm_tx(gr.top_block):
                 cen_freq = linedata
             elif linefromfile[0] == "sig_ul_ratio_db":
                 sig_ul_ratio_db = linedata
+            elif linefromfile[0] == "usrp_gain":
+                usrp_gain = linedata
             elif linefromfile[0] == "final_gain":
                 final_gain = linedata
             elif linefromfile[0] == "expduration":
@@ -101,16 +103,17 @@ class ncofdm_tx(gr.top_block):
         self.sync_word1 = sync_word1 = (0, 0, 0, 0, 0, 0, 0, -1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, -1.0, 0, 1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, -1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 0, 0, 0, 0, 0)
         self.sync_len = sync_len = 20
         self.sig_ul_ratio_db = sig_ul_ratio_db
-        self.shseq = shseq = pn_symbols[0:shseq_len]
+        self.shseq = shseq = pn_symbols[pnseq_offset:pnseq_offset+shseq_len]
         self.samp_rate = samp_rate
         self.pilot_symbols = pilot_symbols
         self.pilot_carriers = pilot_carriers
         self.payload_mod = payload_mod = digital.constellation_qpsk()
         self.packet_len = packet_len = 3*len(range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
-        self.lgseq = lgseq = pn_symbols[shseq_len:shseq_len+lgseq_len]
+        self.lgseq = lgseq = pn_symbols[pnseq_offset+shseq_len:pnseq_offset+shseq_len+lgseq_len]
         self.header_formatter = header_formatter = digital.packet_header_ofdm(occupied_carriers, 1, length_tag_name)
         self.final_gain = final_gain
-        self.dataseq = dataseq = pn_symbols[shseq_len+lgseq_len:shseq_len+lgseq_len+dataseq_len]
+        self.usrp_gain = usrp_gain
+        self.dataseq = dataseq = pn_symbols[pnseq_offset+shseq_len+lgseq_len:pnseq_offset+shseq_len+lgseq_len+dataseq_len]
         self.data_len = data_len = dataseq_len*20
         self.cp_len = cp_len
         self.cen_freq = cen_freq
@@ -127,7 +130,7 @@ class ncofdm_tx(gr.top_block):
         )
         self.uhd_usrp_sink.set_samp_rate(samp_rate)
         self.uhd_usrp_sink.set_center_freq(cen_freq, 0)
-        self.uhd_usrp_sink.set_gain(0, 0)
+        self.uhd_usrp_sink.set_gain(usrp_gain, 0)
         self.uhd_usrp_sink.set_antenna("TX/RX", 0)
         self.ncofdm_ncofdm_carrier_allocator = ncofdm.ncofdm_carrier_allocator(fft_len, occupied_carriers, (), (), "packet_len")
         self.ncofdm_add_cp_underlay = ncofdm.add_cp_underlay(fft_len, cp_len, sig_ul_ratio_db, data_len, shseq_len, shseq_rep, shseq, dataseq_len, dataseq, lgseq_len, lgseq, "packet_len")
@@ -287,6 +290,13 @@ class ncofdm_tx(gr.top_block):
 
     def set_header_formatter(self, header_formatter):
         self.header_formatter = header_formatter
+
+    def get_usrp_gain(self):
+        return self.usrp_gain
+
+    def set_usrp_gain(self, usrp_gain):
+        self.usrp_gain = usrp_gain
+        self.uhd_usrp_sink.set_gain(self.usrp_gain, 0)
 
     def get_final_gain(self):
         return self.final_gain

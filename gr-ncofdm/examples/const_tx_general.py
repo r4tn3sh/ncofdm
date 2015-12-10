@@ -1,34 +1,39 @@
 #!/usr/bin/env python
 ##################################################
 # Gnuradio Python Flow Graph
-# Title: Receiver NC-OFDM
-# Generated: Tue Nov 17 16:09:10 2015
+# Title: Transmitter NC-OFDM
+# Generated: Sun Dec  6 15:44:32 2015
 ##################################################
 
 from gnuradio import analog
 from gnuradio import blocks
+from gnuradio import digital
 from gnuradio import eng_notation
+from gnuradio import fft
 from gnuradio import gr
 from gnuradio import uhd
 from gnuradio.digital.utils import tagged_streams
 from gnuradio.eng_option import eng_option
+from gnuradio.fft import window
 from gnuradio.filter import firdes
 from optparse import OptionParser
+import math
 import ncofdm
 import numpy
 import random
 import time
+import os
 
-class ncofdm_rx(gr.top_block):
+class ncofdm_tx(gr.top_block):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Receiver NC-OFDM")
-
+        gr.top_block.__init__(self, "Transmitter NC-OFDM")
+        filepath = os.getcwd()
         global expduration
         ##################################################
         # Read parameter for configuration
         ##################################################
-        file_handle = open('/root/gr-ncofdm/examples/config_ncofdm_rx', 'r')
+        file_handle = open('/root/gr-ncofdm/examples/config_ncofdm_tx', 'r')
         for line in file_handle: # read rest of lines
             linefromfile = ([x for x in line.split()])
             linesize = len(linefromfile)-1
@@ -59,133 +64,92 @@ class ncofdm_rx(gr.top_block):
             elif linefromfile[0] == "dataseq":
                 dataseq = [int(z) for z in linedata]
             elif linefromfile[0] == "occupied_carriers":
-                occupied_carriers = [int(z) for z in linedata]
+                oc = []
+                for z in linedata:
+                    oc.append(int(z))
+                occupied_carriers = ((oc),)#[int(z) for z in linedata]
             elif linefromfile[0] == "pilot_carriers":
-                pilot_carriers = [int(z) for z in linedata]
+                pc = []
+                for z in linedata:
+                    pc.append(int(z))
+                pilot_carriers = ((pc),)#[int(z) for z in linedata]
             elif linefromfile[0] == "pilot_symbols":
-                pilot_symbols = [int(z) for z in linedata]
+                ps = []
+                for z in linedata:
+                    ps.append(int(z))
+                pilot_symbols = ((ps),)#[int(z) for z in linedata]
             elif linefromfile[0] == "cen_freq":
                 cen_freq = linedata
-            elif linefromfile[0] == "noofsamples":
-                noofsamples = int(linedata)
+            elif linefromfile[0] == "sig_ul_ratio_db":
+                sig_ul_ratio_db = linedata
+            elif linefromfile[0] == "usrp_gain":
+                usrp_gain = linedata
+            elif linefromfile[0] == "final_gain":
+                final_gain = linedata
             elif linefromfile[0] == "expduration":
                 expduration = linedata
+
         ##################################################
         # Variables
         ##################################################
         self.pn_symbols = pn_symbols = (1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, -1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, -1, -1, 1, -1, -1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, -1, 1, 1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, -1, 1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, 1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, -1, 1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, -1, 1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1, 1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, 1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, -1, 1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, 1, 1, -1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, -1, 1, -1, 1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, 1, -1, 1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, -1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, 1, -1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, -1, -1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, 1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, 1, -1, 1, 1, -1, 1, 1, -1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, -1, 1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, -1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1)
-        self.lgseq_len = lgseq_len
         self.shseq_len = shseq_len
-        self.fft_len = fft_len
         self.shseq_rep = shseq_rep
-        self.shseq = shseq = pn_symbols[pnseq_offset+0:pnseq_offset+shseq_len]
-        self.lgseq = lgseq = pn_symbols[pnseq_offset+shseq_len:pnseq_offset+shseq_len+lgseq_len]
+        self.occupied_carriers = occupied_carriers
+        self.lgseq_len = lgseq_len
+        self.length_tag_name = length_tag_name = "packet_len"
+        self.fft_len = fft_len
+        self.dataseq_len = dataseq_len
+        self.sync_word2 = sync_word2 = (0, 0, 0, 0, 0, 1, 1, -1.0, -1, 1.0, 1, 1.0, -1, -1.0, -1, 1.0, 1, -1.0, 1, 1.0, 1, -1.0, -1, -1.0, -1, 1.0, -1, 1.0, -1, 1.0, 1, -1.0, 0, 1.0, 1, -1.0, 1, 1.0, -1, -1.0, 1, -1.0, -1, -1.0, 1, 1.0, 1, -1.0, 1, 1.0, -1, 1.0, -1, -1.0, -1, 1.0, 1, -1.0, 0, 0, 0, 0, 0, 0)
+        self.sync_word1 = sync_word1 = (0, 0, 0, 0, 0, 0, 0, -1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, -1.0, 0, 1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, -1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 0, 0, 0, 0, 0)
+        self.sync_len = sync_len = 20
+        self.sig_ul_ratio_db = sig_ul_ratio_db
+        self.shseq = shseq = pn_symbols[0:shseq_len]
         self.samp_rate = samp_rate
         self.pilot_symbols = pilot_symbols
         self.pilot_carriers = pilot_carriers
-        self.packet_len = packet_len = 3*len(occupied_carriers)
-        self.occupied_carriers = occupied_carriers
-        self.length_tag_name = length_tag_name = "packet_len"
-        self.fileprefix = fileprefix = "/root/"
+        self.payload_mod = payload_mod = digital.constellation_qpsk()
+        self.packet_len = packet_len = 3*len(range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
+        self.lgseq = lgseq = pn_symbols[shseq_len:shseq_len+lgseq_len]
+        self.header_formatter = header_formatter = digital.packet_header_ofdm(occupied_carriers, 1, length_tag_name)
+        self.final_gain = final_gain
+        self.dataseq = dataseq = pn_symbols[shseq_len+lgseq_len:shseq_len+lgseq_len+dataseq_len]
+        self.data_len = data_len = dataseq_len*20
         self.cp_len = cp_len
         self.cen_freq = cen_freq
-        self.data_len = data_len = dataseq_len*20
-        self.ShThreshold = ShThreshold = 10
-        self.ShRepThreshold = ShRepThreshold = 3.5
-        self.LgThreshold = LgThreshold = 60
 
         ##################################################
         # Blocks
         ##################################################
-        self.uhd_usrp_source = uhd.usrp_source(
+        self.uhd_usrp_sink = uhd.usrp_sink(
         	",".join(("", "")),
         	uhd.stream_args(
         		cpu_format="fc32",
         		channels=range(1),
         	),
         )
-        # UHD
-        self.uhd_usrp_source.set_samp_rate(samp_rate)
-        self.uhd_usrp_source.set_center_freq(cen_freq, 0)
-        self.uhd_usrp_source.set_gain(0, 0)
-        self.uhd_usrp_source.set_antenna("RX2", 0)
-        # Null sinks
-        self.null_sink_shortpncorr_out = blocks.null_sink(gr.sizeof_gr_complex*1)
-        self.null_sink_longpncorrv2_out = blocks.null_sink(gr.sizeof_gr_complex*1)
-        self.null_sink_longpncorrv2_flag = blocks.null_sink(gr.sizeof_int*1)
-        self.null_sink_longpncorrv2_corr = blocks.null_sink(gr.sizeof_gr_complex*1)
-        # NCOFDM blocks
-        self.ncofdm_ShortPNdetector = ncofdm.ShortPNdetector(fft_len, cp_len, shseq_rep, shseq_len, 1)
-        self.ncofdm_ShortPNcorr = ncofdm.ShortPNcorr(fft_len, cp_len, shseq_rep, shseq_len, (shseq))
-        self.ncofdm_LongPNcorrV2 = ncofdm.LongPNcorrV2(fft_len, cp_len, lgseq_len, (lgseq), 60, shseq_len*shseq_rep+lgseq_len+data_len+10)
-        self.ncofdm_FreqOffCalc = ncofdm.FreqOffCalc(fft_len, fft_len/4, shseq_len, shseq_rep)
-        # File sinks
-        self.file_sink_short = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"short.dat", False)
-        self.file_sink_short.set_unbuffered(False)
-        self.file_sink_rxshth = blocks.file_sink(gr.sizeof_float*1, fileprefix+"rxshth.dat", False)
-        self.file_sink_rxshth.set_unbuffered(False)
-        self.file_sink_org = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"org.dat", False)
-        self.file_sink_org.set_unbuffered(False)
-        self.file_sink_long = blocks.file_sink(gr.sizeof_gr_complex*1, fileprefix+"long.dat", False)
-        self.file_sink_long.set_unbuffered(False)
-        self.file_sink_lgth = blocks.file_sink(gr.sizeof_float*1, fileprefix+"lgth.dat", False)
-        self.file_sink_lgth.set_unbuffered(False)
-        self.file_sink_gain = blocks.file_sink(gr.sizeof_float*1, fileprefix+"gain.dat", False)
-        self.file_sink_gain.set_unbuffered(False)
-        #self.file_sink_freqoff = blocks.file_sink(gr.sizeof_float*1, fileprefix+"freqoff.dat", False)
-        #self.file_sink_freqoff.set_unbuffered(False)
-        self.file_sink_corr = blocks.file_sink(gr.sizeof_int*1, fileprefix+"corr.dat", False)
-        self.file_sink_corr.set_unbuffered(False)
-        # Blocks
-        self.blocks_head = blocks.head(gr.sizeof_gr_complex*1, noofsamples)
-        self.blocks_threshold_ff = blocks.threshold_ff(ShRepThreshold, ShRepThreshold, 0)
-        self.blocks_moving_average = blocks.moving_average_ff(100, 0.01, 4000)
-        self.blocks_float_to_int = blocks.float_to_int(1, 1)
-        self.blocks_float_to_complex_0 = blocks.float_to_complex(1)
-        self.blocks_delay_shpn_lgpn = blocks.delay(gr.sizeof_float*1, 2)
-        self.blocks_delay_shpn_freqoff = blocks.delay(gr.sizeof_int*1, 1)
-        self.blocks_delay_freqoff_lgpn = blocks.delay(gr.sizeof_float*1, 2)
-        self.blocks_complex_to_real_0 = blocks.complex_to_real(1)
-        self.blocks_complex_to_mag_org = blocks.complex_to_mag(1)
-        self.blocks_complex_to_mag = blocks.complex_to_mag(1)
-        self.analog_agc = analog.agc2_cc(1e-1, 1e-2, 1.0, 1.0)
-        self.analog_agc.set_max_gain(50000.0)
+        self.uhd_usrp_sink.set_samp_rate(samp_rate)
+        self.uhd_usrp_sink.set_center_freq(cen_freq, 0)
+        self.uhd_usrp_sink.set_gain(usrp_gain, 0)
+        self.uhd_usrp_sink.set_antenna("TX/RX", 0)
+        self.ncofdm_ncofdm_carrier_allocator = ncofdm.ncofdm_carrier_allocator(fft_len, occupied_carriers, (), (), "packet_len")
+        self.ncofdm_add_cp_underlay = ncofdm.add_cp_underlay(fft_len, cp_len, sig_ul_ratio_db, data_len, shseq_len, shseq_rep, shseq, dataseq_len, dataseq, lgseq_len, lgseq, "packet_len")
+        self.fft_vxx = fft.fft_vcc(fft_len, False, (()), True, 1)
+        self.blocks_stream_to_tagged_stream = blocks.stream_to_tagged_stream(gr.sizeof_gr_complex, 1, packet_len, "packet_len")
+        self.blocks_overlaygain = blocks.multiply_const_vcc(([1/(math.sqrt(44))]*fft_len))
+        self.blocks_final_gain = blocks.multiply_const_vcc((final_gain, ))
+        self.analog_const_source = analog.sig_source_c(0, analog.GR_CONST_WAVE, 0, 0, (1/math.sqrt(2))*(1+1j))
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.uhd_usrp_source, 0), (self.blocks_head, 0))
-        self.connect((self.blocks_head, 0), (self.analog_agc, 0))
-        self.connect((self.analog_agc, 0), (self.blocks_complex_to_mag_org, 0))
-        self.connect((self.analog_agc, 1), (self.file_sink_gain, 0))
-        self.connect((self.analog_agc, 0), (self.file_sink_org, 0))
-        self.connect((self.analog_agc, 0), (self.ncofdm_LongPNcorrV2, 0))
-        self.connect((self.analog_agc, 0), (self.ncofdm_ShortPNcorr, 0))
-        self.connect((self.blocks_complex_to_mag, 0), (self.ncofdm_ShortPNdetector, 0))
-        self.connect((self.blocks_complex_to_mag_org, 0), (self.blocks_moving_average, 0))
-        self.connect((self.blocks_complex_to_real_0, 0), (self.file_sink_lgth, 0))
-        self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.blocks_float_to_complex_0, 0))
-        #self.connect((self.blocks_delay_freqoff_lgpn, 0), (self.file_sink_freqoff, 0))
-        self.connect((self.blocks_delay_shpn_freqoff, 0), (self.ncofdm_FreqOffCalc, 1))
-        self.connect((self.blocks_delay_shpn_lgpn, 0), (self.blocks_float_to_complex_0, 1))
-        self.connect((self.blocks_float_to_complex_0, 0), (self.ncofdm_LongPNcorrV2, 1))
-        self.connect((self.blocks_float_to_int, 0), (self.blocks_delay_shpn_freqoff, 0))
-        self.connect((self.blocks_moving_average, 0), (self.ncofdm_LongPNcorrV2, 2))
-        self.connect((self.blocks_threshold_ff, 0), (self.blocks_delay_shpn_lgpn, 0))
-        self.connect((self.blocks_threshold_ff, 0), (self.blocks_float_to_int, 0))
-        self.connect((self.ncofdm_FreqOffCalc, 0), (self.blocks_delay_freqoff_lgpn, 0))
-        self.connect((self.ncofdm_LongPNcorrV2, 0), (self.blocks_complex_to_real_0, 0))
-        self.connect((self.ncofdm_LongPNcorrV2, 2), (self.file_sink_corr, 0))
-        self.connect((self.ncofdm_LongPNcorrV2, 1), (self.file_sink_long, 0))
-        self.connect((self.ncofdm_LongPNcorrV2, 1), (self.null_sink_longpncorrv2_corr, 0))
-        self.connect((self.ncofdm_LongPNcorrV2, 2), (self.null_sink_longpncorrv2_flag, 0))
-        self.connect((self.ncofdm_LongPNcorrV2, 0), (self.null_sink_longpncorrv2_out, 0))
-        self.connect((self.ncofdm_ShortPNcorr, 1), (self.blocks_complex_to_mag, 0))
-        self.connect((self.ncofdm_ShortPNcorr, 1), (self.file_sink_short, 0))
-        self.connect((self.ncofdm_ShortPNcorr, 1), (self.ncofdm_FreqOffCalc, 0))
-        self.connect((self.ncofdm_ShortPNcorr, 0), (self.null_sink_shortpncorr_out, 0))
-        self.connect((self.ncofdm_ShortPNdetector, 0), (self.blocks_threshold_ff, 0))
-        self.connect((self.ncofdm_ShortPNdetector, 1), (self.file_sink_rxshth, 0))
+        self.connect((self.analog_const_source, 0), (self.blocks_stream_to_tagged_stream, 0))
+        self.connect((self.blocks_stream_to_tagged_stream, 0), (self.ncofdm_ncofdm_carrier_allocator, 0))
+        self.connect((self.ncofdm_ncofdm_carrier_allocator, 0), (self.fft_vxx, 0))
+        self.connect((self.fft_vxx, 0), (self.blocks_overlaygain, 0))
+        self.connect((self.blocks_overlaygain, 0), (self.ncofdm_add_cp_underlay, 0))
+        self.connect((self.ncofdm_add_cp_underlay, 0), (self.blocks_final_gain, 0))
+        self.connect((self.blocks_final_gain, 0), (self.uhd_usrp_sink, 0))
 
 
     def get_shseq_len(self):
@@ -193,16 +157,25 @@ class ncofdm_rx(gr.top_block):
 
     def set_shseq_len(self, shseq_len):
         self.shseq_len = shseq_len
-        self.set_shseq(self.pn_symbols[0:self.shseq_len])
         self.set_lgseq(self.pn_symbols[self.shseq_len:self.shseq_len+self.lgseq_len])
+        self.set_shseq(self.pn_symbols[0:self.shseq_len])
+        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
 
     def get_pn_symbols(self):
         return self.pn_symbols
 
     def set_pn_symbols(self, pn_symbols):
         self.pn_symbols = pn_symbols
-        self.set_shseq(self.pn_symbols[0:self.shseq_len])
         self.set_lgseq(self.pn_symbols[self.shseq_len:self.shseq_len+self.lgseq_len])
+        self.set_shseq(self.pn_symbols[0:self.shseq_len])
+        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
+
+    def get_occupied_carriers(self):
+        return self.occupied_carriers
+
+    def set_occupied_carriers(self, occupied_carriers):
+        self.occupied_carriers = occupied_carriers
+        self.set_header_formatter(digital.packet_header_ofdm(self.occupied_carriers, 1, self.length_tag_name))
 
     def get_lgseq_len(self):
         return self.lgseq_len
@@ -210,6 +183,14 @@ class ncofdm_rx(gr.top_block):
     def set_lgseq_len(self, lgseq_len):
         self.lgseq_len = lgseq_len
         self.set_lgseq(self.pn_symbols[self.shseq_len:self.shseq_len+self.lgseq_len])
+        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
+
+    def get_length_tag_name(self):
+        return self.length_tag_name
+
+    def set_length_tag_name(self, length_tag_name):
+        self.length_tag_name = length_tag_name
+        self.set_header_formatter(digital.packet_header_ofdm(self.occupied_carriers, 1, self.length_tag_name))
 
     def get_fft_len(self):
         return self.fft_len
@@ -217,6 +198,39 @@ class ncofdm_rx(gr.top_block):
     def set_fft_len(self, fft_len):
         self.fft_len = fft_len
         self.set_cp_len(self.fft_len/4)
+        self.blocks_overlaygain.set_k(([1/(math.sqrt(44))]*self.fft_len))
+
+    def get_dataseq_len(self):
+        return self.dataseq_len
+
+    def set_dataseq_len(self, dataseq_len):
+        self.dataseq_len = dataseq_len
+        self.set_dataseq(self.pn_symbols[self.shseq_len+self.lgseq_len:self.shseq_len+self.lgseq_len+self.dataseq_len])
+        self.set_data_len(self.dataseq_len*20)
+
+    def get_sync_word2(self):
+        return self.sync_word2
+
+    def set_sync_word2(self, sync_word2):
+        self.sync_word2 = sync_word2
+
+    def get_sync_word1(self):
+        return self.sync_word1
+
+    def set_sync_word1(self, sync_word1):
+        self.sync_word1 = sync_word1
+
+    def get_sync_len(self):
+        return self.sync_len
+
+    def set_sync_len(self, sync_len):
+        self.sync_len = sync_len
+
+    def get_sig_ul_ratio_db(self):
+        return self.sig_ul_ratio_db
+
+    def set_sig_ul_ratio_db(self, sig_ul_ratio_db):
+        self.sig_ul_ratio_db = sig_ul_ratio_db
 
     def get_shseq_rep(self):
         return self.shseq_rep
@@ -235,7 +249,7 @@ class ncofdm_rx(gr.top_block):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.uhd_usrp_source.set_samp_rate(self.samp_rate)
+        self.uhd_usrp_sink.set_samp_rate(self.samp_rate)
 
     def get_pilot_symbols(self):
         return self.pilot_symbols
@@ -249,17 +263,17 @@ class ncofdm_rx(gr.top_block):
     def set_pilot_carriers(self, pilot_carriers):
         self.pilot_carriers = pilot_carriers
 
+    def get_payload_mod(self):
+        return self.payload_mod
+
+    def set_payload_mod(self, payload_mod):
+        self.payload_mod = payload_mod
+
     def get_packet_len(self):
         return self.packet_len
 
     def set_packet_len(self, packet_len):
         self.packet_len = packet_len
-
-    def get_occupied_carriers(self):
-        return self.occupied_carriers
-
-    def set_occupied_carriers(self, occupied_carriers):
-        self.occupied_carriers = occupied_carriers
 
     def get_lgseq(self):
         return self.lgseq
@@ -267,25 +281,37 @@ class ncofdm_rx(gr.top_block):
     def set_lgseq(self, lgseq):
         self.lgseq = lgseq
 
-    def get_length_tag_name(self):
-        return self.length_tag_name
+    def get_header_formatter(self):
+        return self.header_formatter
 
-    def set_length_tag_name(self, length_tag_name):
-        self.length_tag_name = length_tag_name
+    def set_header_formatter(self, header_formatter):
+        self.header_formatter = header_formatter
 
-    def get_fileprefix(self):
-        return self.fileprefix
+    def get_usrp_gain(self):
+        return self.usrp_gain
 
-    def set_fileprefix(self, fileprefix):
-        self.fileprefix = fileprefix
-        self.file_sink_org.open(self.fileprefix+"org.dat")
-        self.file_sink_gain.open(self.fileprefix+"gain.dat")
-        self.file_sink_short.open(self.fileprefix+"short.dat")
-        self.file_sink_rxshth.open(self.fileprefix+"rxshth.dat")
-        #self.file_sink_freqoff.open(self.fileprefix+"freqoff.dat")
-        self.file_sink_corr.open(self.fileprefix+"corr.dat")
-        self.file_sink_long.open(self.fileprefix+"long.dat")
-        self.file_sink_lgth.open(self.fileprefix+"lgth.dat")
+    def set_usrp_gain(self, usrp_gain):
+        self.usrp_gain = usrp_gain
+        self.uhd_usrp_sink.set_gain(self.usrp_gain, 0)
+
+    def get_final_gain(self):
+        return self.final_gain
+
+    def set_final_gain(self, final_gain):
+        self.final_gain = final_gain
+        self.blocks_final_gain.set_k((self.final_gain, ))
+
+    def get_dataseq(self):
+        return self.dataseq
+
+    def set_dataseq(self, dataseq):
+        self.dataseq = dataseq
+
+    def get_data_len(self):
+        return self.data_len
+
+    def set_data_len(self, data_len):
+        self.data_len = data_len
 
     def get_cp_len(self):
         return self.cp_len
@@ -298,33 +324,12 @@ class ncofdm_rx(gr.top_block):
 
     def set_cen_freq(self, cen_freq):
         self.cen_freq = cen_freq
-        self.uhd_usrp_source.set_center_freq(self.cen_freq, 0)
-
-    def get_ShThreshold(self):
-        return self.ShThreshold
-
-    def set_ShThreshold(self, ShThreshold):
-        self.ShThreshold = ShThreshold
-
-    def get_ShRepThreshold(self):
-        return self.ShRepThreshold
-
-    def set_ShRepThreshold(self, ShRepThreshold):
-        self.ShRepThreshold = ShRepThreshold
-        self.blocks_threshold_ff.set_hi(self.ShRepThreshold)
-        self.blocks_threshold_ff.set_lo(self.ShRepThreshold)
-
-    def get_LgThreshold(self):
-        return self.LgThreshold
-
-    def set_LgThreshold(self, LgThreshold):
-        self.LgThreshold = LgThreshold
+        self.uhd_usrp_sink.set_center_freq(self.cen_freq, 0)
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
     (options, args) = parser.parse_args()
-    tb = ncofdm_rx()
+    tb = ncofdm_tx()
     tb.start()
-    tb.wait()
-    #time.sleep(expduration)
-    #tb.stop()
+    time.sleep(expduration)
+    tb.stop()
