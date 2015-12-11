@@ -104,16 +104,16 @@ class ncofdm_tx(gr.top_block):
         self.sync_word1 = sync_word1 = (0, 0, 0, 0, 0, 0, 0, -1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, -1.0, 0, 1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, -1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, 1.0, 0, -1.0, 0, 1.0, 0, -1.0, 0, 0, 0, 0, 0, 0)
         self.sync_len = sync_len = 20
         self.sig_ul_ratio_db = sig_ul_ratio_db
-        self.shseq = shseq = pn_symbols[0:shseq_len]
+        self.shseq = shseq = pn_symbols[pnseq_offset+0:pnseq_offset+shseq_len]
         self.samp_rate = samp_rate
         self.pilot_symbols = pilot_symbols
         self.pilot_carriers = pilot_carriers
         self.payload_mod = payload_mod = digital.constellation_qpsk()
         self.packet_len = packet_len = 3*len(range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
-        self.lgseq = lgseq = pn_symbols[shseq_len:shseq_len+lgseq_len]
+        self.lgseq = lgseq = pn_symbols[pnseq_offset+shseq_len:pnseq_offset+shseq_len+lgseq_len]
         self.header_formatter = header_formatter = digital.packet_header_ofdm(occupied_carriers, 1, length_tag_name)
         self.final_gain = final_gain
-        self.dataseq = dataseq = pn_symbols[shseq_len+lgseq_len:shseq_len+lgseq_len+dataseq_len]
+        self.dataseq = dataseq = pn_symbols[pnseq_offset+shseq_len+lgseq_len:pnseq_offset+shseq_len+lgseq_len+dataseq_len]
         self.data_len = data_len = dataseq_len*20
         self.cp_len = cp_len
         self.cen_freq = cen_freq
