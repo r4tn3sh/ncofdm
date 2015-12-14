@@ -34,6 +34,7 @@ class ncofdm_tx(gr.top_block):
         # Read parameter for configuration
         ##################################################
         file_handle = open('/root/gr-ncofdm/examples/config_ncofdm_tx', 'r')
+        print "Reading the configuration file ... "
         for line in file_handle: # read rest of lines
             linefromfile = ([x for x in line.split()])
             linesize = len(linefromfile)-1
@@ -109,7 +110,7 @@ class ncofdm_tx(gr.top_block):
         self.pilot_symbols = pilot_symbols
         self.pilot_carriers = pilot_carriers
         self.payload_mod = payload_mod = digital.constellation_qpsk()
-        self.packet_len = packet_len = 3*len(range(-26, -21)+ range(-20,-7) + range(8, 21) + range(22, 27),)
+        self.packet_len = packet_len = len(occupied_carriers[0])
         self.lgseq = lgseq = pn_symbols[pnseq_offset+shseq_len:pnseq_offset+shseq_len+lgseq_len]
         self.header_formatter = header_formatter = digital.packet_header_ofdm(occupied_carriers, 1, length_tag_name)
         self.final_gain = final_gain
@@ -175,6 +176,7 @@ class ncofdm_tx(gr.top_block):
 
     def set_occupied_carriers(self, occupied_carriers):
         self.occupied_carriers = occupied_carriers
+        self.packet_len = len(occupied_carriers[0])
         self.set_header_formatter(digital.packet_header_ofdm(self.occupied_carriers, 1, self.length_tag_name))
 
     def get_lgseq_len(self):

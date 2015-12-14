@@ -1,4 +1,6 @@
-# ncofdm v8.2
+# ncofdm v8.3
+updated "packet_len=len(occupied_carriers[0])" in examples
+### ncofdm v8.2
 pnseq_offset was changed in const_tx_general.py
 ### ncofdm v8.1
 usrp_gain is added
