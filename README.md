@@ -1,3 +1,4 @@
+### This code is no longer maintained.
 # ncofdm v8.3
 updated "packet_len=len(occupied_carriers[0])" in examples
 ### ncofdm v8.2
